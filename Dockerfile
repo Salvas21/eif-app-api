@@ -1,5 +1,7 @@
 # the first stage of our build will extract the layers
-FROM eclipse-temurin:17-jdk-alpine as builder
+FROM maven:3.8.5-eclipse-temurin-17-alpine as builder
+COPY . .
+RUN mvn package
 WORKDIR application
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} application.jar
