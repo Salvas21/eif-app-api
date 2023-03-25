@@ -1,22 +1,29 @@
 package tech.salvas.eifapi.controllers;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import tech.salvas.eifapi.services.FileService;
+import tech.salvas.eifapi.dto.FileDTO;
+import tech.salvas.eifapi.model.File;
+import tech.salvas.eifapi.services.IFileService;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/api/files")
 public class FileController {
 
-    final FileService fileService;
+    private final IFileService fileService;
+    private final ModelMapper modelMapper;
 
-    public FileController(FileService fileService) {
+    public FileController(IFileService IFileService, ModelMapper modelMapper) {
         // https://github.com/gladius/spring-boot-digital-ocean-spaces
-        this.fileService = fileService;
+        this.fileService = IFileService;
+        this.modelMapper = modelMapper;
     }
 
 
@@ -36,15 +43,20 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is too large (Maximum file size: 50MB)");
         }
 
-
-
         try {
-//            this.fileService.save(file, "test");
-            this.fileService.save(file, activityID);
+            fileService.save(file, activityID);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
 
         return ResponseEntity.status(HttpStatus.OK).body("File uploaded");
+    }
+
+    @CrossOrigin
+    @GetMapping("/get/{activityID}")
+    public ResponseEntity<List<FileDTO>> getAll(@PathVariable("activityID") String activityID) {
+        List<File> files = fileService.getAll(activityID);
+
+        return ResponseEntity.ok(files.stream().map(post -> modelMapper.map(post, FileDTO.class)).collect(Collectors.toList()));
     }
 }
