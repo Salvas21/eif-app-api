@@ -59,4 +59,11 @@ public class FileController {
 
         return ResponseEntity.ok(files.stream().map(post -> modelMapper.map(post, FileDTO.class)).collect(Collectors.toList()));
     }
+
+    @CrossOrigin
+    @GetMapping("/get/{activityID}/download/{key}")
+    public ResponseEntity<String> get(@PathVariable("activityID") String activityID, @PathVariable("key") String key) {
+        String url = fileService.get(activityID, key);
+        return ResponseEntity.ok(url);
+    }
 }

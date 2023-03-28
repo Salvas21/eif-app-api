@@ -1,14 +1,19 @@
 package tech.salvas.eifapi.services;
 
+import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
+import com.amazonaws.services.s3.transfer.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import tech.salvas.eifapi.model.File;
 
 import java.io.IOException;
+import java.net.URL;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,7 +49,7 @@ public class FileService implements IFileService {
 
     @Override
     public void delete(int id) throws Exception {
-
+//        s3Client.deleteObject(new DeleteObjectRequest(spaceBucket, folder + activityID + "/" + key));
     }
 
     @Override
@@ -63,8 +68,18 @@ public class FileService implements IFileService {
     }
 
     @Override
-    public File get(String activityID, String key) {
-        // try and download, return an url ?
-        return null;
+    public String get(String activityID, String key) {
+        Date expiration = new Date();
+        long expTimeMillis = Instant.now().toEpochMilli();
+        expTimeMillis += 1000 * 60 * 2; // now + 2m
+        expiration.setTime(expTimeMillis);
+
+        GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                new GeneratePresignedUrlRequest(spaceBucket, folder + activityID + "/" + key)
+                        .withMethod(HttpMethod.GET)
+                        .withExpiration(expiration);
+        URL url = s3Client.generatePresignedUrl(generatePresignedUrlRequest);
+
+        return url.toString();
     }
 }

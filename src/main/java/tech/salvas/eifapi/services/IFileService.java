@@ -12,5 +12,5 @@ public interface IFileService {
     void delete(int id) throws Exception;
 
     List<File> getAll(String activityID);
-    File get(String activityID, String key);
+    String get(String activityID, String key);
 }
