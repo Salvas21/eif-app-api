@@ -9,7 +9,7 @@ import java.util.List;
 public interface IFileService {
     void save(MultipartFile multipartFile, String activityID) throws IOException;
 
-    void delete(int id) throws Exception;
+    void delete(String activityID, String key);
 
     List<File> getAll(String activityID);
     String get(String activityID, String key);

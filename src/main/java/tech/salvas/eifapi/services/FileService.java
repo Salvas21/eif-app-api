@@ -48,8 +48,8 @@ public class FileService implements IFileService {
     }
 
     @Override
-    public void delete(int id) throws Exception {
-//        s3Client.deleteObject(new DeleteObjectRequest(spaceBucket, folder + activityID + "/" + key));
+    public void delete(String activityID, String key) {
+        s3Client.deleteObject(new DeleteObjectRequest(spaceBucket, folder + activityID + "/" + key));
     }
 
     @Override

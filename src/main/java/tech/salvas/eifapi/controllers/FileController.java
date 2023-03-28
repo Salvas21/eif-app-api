@@ -66,4 +66,11 @@ public class FileController {
         String url = fileService.get(activityID, key);
         return ResponseEntity.ok(url);
     }
+
+    @CrossOrigin
+    @GetMapping("/get/{activityID}/delete/{key}")
+    public ResponseEntity<String> delete(@PathVariable("activityID") String activityID, @PathVariable("key") String key) {
+        fileService.delete(activityID, key);
+        return ResponseEntity.ok("");
+    }
 }
