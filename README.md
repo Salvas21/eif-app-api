@@ -17,27 +17,25 @@ Add the following VM option in dev environment and possibly also in production
 -Djsse.enableSNIExtension=false
 ```
 
-Create an application.yaml file in path: "src/main/resources/application/yaml"
+Create an .env file in root of the project with following env vars
 
 - endpoint needs to be in origin format, and also not having the bucket name in his URL
 
-```yaml
-do:
-  space:
-    key: ""
-    secret: ""
-    endpoint: ""
-    region: ""
-    bucket: ""
-
-server:
-  address: "0.0.0.0"
-
-spring:
-  servlet:
-    multipart:
-      max-file-size: 50MB
-      max-request-size: 100MB
-
+```
+SPACE_KEY=""
+SPACE_SECRET=""
+SPACE_ENDPOINT=""
+SPACE_REGION=""
+SPACE_BUCKET=""
 ```
 
+After that, to run the API with the current variables, run the following commands:
+
+1. Export the env vars to the current environment (terminal) 
+    ```
+    export $(cat .env | xargs)
+    ```
+2. Run the project using Maven
+    ```
+    mvn spring-boot:run
+    ```
