@@ -31,20 +31,29 @@ public class ActivityController {
     }
 
     @CrossOrigin
+    @GetMapping("/getLevels")
+    public ResponseEntity<List<String>> getLevels() {
+        return ResponseEntity.ok(activityService.getLevels());
+    }
+
+    @CrossOrigin
     @GetMapping("/getForStudent/{code}/{studentId}")
     public ResponseEntity<?> getActivityForStudent(@PathVariable String code, @PathVariable String studentId) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not implemented");
     }
 
     @CrossOrigin
-    @PutMapping("/put/{code}")
-    public ResponseEntity<?> updateActivity(@PathVariable String code) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not implemented");
+    @PutMapping("/modify/{code}")
+    public ResponseEntity<?> updateActivity(@RequestBody ActivityDTO activityDTO, @PathVariable String code) {
+        var success = activityService.update(activityDTO, code);
+        System.out.println("Received something");
+        return ResponseEntity.ok("Activity ajouter: " + success);
     }
 
     @CrossOrigin
     @PostMapping("/add")
-    public ResponseEntity<?> addActivity() {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not implemented");
+    public ResponseEntity<?> addActivity(@RequestBody ActivityDTO activity) {
+        this.activityService.save(activity);
+        return ResponseEntity.ok("Activity has been added");
     }
 }

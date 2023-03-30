@@ -6,6 +6,7 @@ import tech.salvas.eifapi.model.Activity;
 import tech.salvas.eifapi.repository.ActivityRepository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -16,18 +17,18 @@ public class ActivityService implements IActivityService {
         this.activityRepository = repository;
     }
     @Override
-    public void save() {
-
+    public void save(ActivityDTO activityDTO) {
+        activityRepository.add(activityDTO);
     }
 
     @Override
-    public void delete() {
-
+    public boolean delete(String code) {
+        return false;
     }
 
     @Override
-    public void update() {
-
+    public boolean update(ActivityDTO activityDTO, String code) {
+        return activityRepository.modify(activityDTO, code);
     }
 
     @Override
@@ -43,5 +44,10 @@ public class ActivityService implements IActivityService {
     @Override
     public ActivityDTO get(String code) {
         return new ActivityDTO(activityRepository.getActivity(code));
+    }
+
+    @Override
+    public List<String> getLevels() {
+        return Arrays.asList("Débutant", "Intermédiaire", "Avancé");
     }
 }

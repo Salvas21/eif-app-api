@@ -1,6 +1,7 @@
 package tech.salvas.eifapi.repository;
 
 import org.springframework.stereotype.Repository;
+import tech.salvas.eifapi.dto.ActivityDTO;
 import tech.salvas.eifapi.model.Activity;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class ActivityRepository {
     List<Activity> activities = new ArrayList<>();
 
     public ActivityRepository() {
-        activities.add(new Activity("EIFR10", "Pièce de théâtre", "Faire l'écriture d'une pièce de théâtre, pour finalement la présenter", "Beginner"));
+        activities.add(new Activity("EIFR10", "Pièce de théâtre", "Faire l'écriture d'une pièce de théâtre, pour finalement la présenter", "Débutant"));
         activities.add(new Activity("EIFR12", "Interprétation d'une pièce de théâtre", "Faire l'interprétation d'une pièce de théâtre historique, il faudra pratiquer la diction, et les émotions de l'interprétation", "Avancé"));
         activities.add(new Activity("EIFR11", "Lecture d'un poème", "Faire la lecture d'un roman de votre choix pour mettre en pratique votre interprétation des émotions", "Intermédiaire"));
         activities.add(new Activity("EIFR09", "Analyse d'une pièce de théâtre", "Faire l'analyse d'une pièce de théâtre, sortir les différentes émotions des personnages, leurs motifs", "Débutant"));
@@ -27,5 +28,21 @@ public class ActivityRepository {
                 return activity;
         }
         return new Activity();
+    }
+
+    public boolean add(ActivityDTO activityDTO) {
+        activities.add(new Activity(activityDTO.getCode(), activityDTO.getName(), activityDTO.getDescription(), activityDTO.getLevel()));
+        return true;
+    }
+
+    public boolean modify(ActivityDTO activityDTO, String code) {
+        for (int i = 0; i< activities.size(); i++) {
+            if (activities.get(i).getCode().equalsIgnoreCase(code)) {
+                var newActivity = new Activity(activityDTO.getCode(), activityDTO.getName(), activityDTO.getDescription(), activityDTO.getLevel());
+                activities.set(i, newActivity);
+                return true;
+            }
+        };
+        return false;
     }
 }

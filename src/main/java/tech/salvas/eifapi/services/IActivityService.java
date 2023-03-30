@@ -5,10 +5,12 @@ import tech.salvas.eifapi.dto.ActivityDTO;
 import java.util.List;
 
 public interface IActivityService {
-    void save();
-    void delete();
+    void save(ActivityDTO activityDTO);
+    boolean delete(String code);
 
-    void update();
+    boolean update(ActivityDTO activityDTO, String code);
     List<ActivityDTO> getAll();
     ActivityDTO get(String code);
+
+    List<String> getLevels();
 }
