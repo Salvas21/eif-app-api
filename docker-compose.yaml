@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  database:
+    image: postgres
+    container_name: eif-db
+    volumes:
+      - eif-pgsql-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: Omega123
+      POSTGRES_DB: eif-db
+
+volumes:
+  eif-pgsql-data:
