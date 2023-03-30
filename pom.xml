@@ -71,6 +71,9 @@
 						<manifest>
 							<mainClass>tech.salvas.eifapi.EifApiApplication</mainClass>
 						</manifest>
+						<archiverConfig>
+							<compress>false</compress>
+						</archiverConfig>
 					</archive>
 				</configuration>
 			</plugin>
