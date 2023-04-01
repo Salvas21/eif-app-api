@@ -22,11 +22,9 @@ public class AuthController {
         JsonParser springParser = JsonParserFactory.getJsonParser();
         Map<String, Object> credentials = springParser.parseMap(jsonString);
 
-        UserDTO user = (credentials.containsKey("email"))
+        UserDTO user = ((boolean)credentials.get("isAdmin"))
                 ? new UserDTO(new User("Admin", "Name", "ADMIN12345678", true))
                 : new StudentDTO(new Student("Martin", "Sandwich", "SANM12345678", 2, new Activity[] {new Activity("ACT12", "Test", "Description", "2")}));
-
-        System.out.println(user);
 
         return ResponseEntity.ok(user);
     }
