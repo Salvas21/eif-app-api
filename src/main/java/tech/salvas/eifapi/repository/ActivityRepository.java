@@ -16,6 +16,9 @@ public class ActivityRepository {
         activities.add(new Activity("EIFR12", "Interprétation d'une pièce de théâtre", "Faire l'interprétation d'une pièce de théâtre historique, il faudra pratiquer la diction, et les émotions de l'interprétation", "Avancé"));
         activities.add(new Activity("EIFR11", "Lecture d'un poème", "Faire la lecture d'un roman de votre choix pour mettre en pratique votre interprétation des émotions", "Intermédiaire"));
         activities.add(new Activity("EIFR09", "Analyse d'une pièce de théâtre", "Faire l'analyse d'une pièce de théâtre, sortir les différentes émotions des personnages, leurs motifs", "Débutant"));
+        activities.add(new Activity("ACT12", "Test", "Description", "Intermédiaire"));
+        activities.add(new Activity("BEG11", "Beginner", "A beginner task", "Débutant"));
+        activities.add(new Activity("BEG22", "Another", "An other beginner task", "Débutant"));
     }
 
     public List<Activity> getActivities() {
@@ -44,5 +47,14 @@ public class ActivityRepository {
             }
         };
         return false;
+    }
+
+    public List<Activity> getActivitiesForLevel(int level) {
+        var available = new ArrayList<Activity>();
+        for (var activity: activities) {
+            if (activity.getActivityLevel() <= level)
+                available.add(activity);
+        }
+        return available;
     }
 }

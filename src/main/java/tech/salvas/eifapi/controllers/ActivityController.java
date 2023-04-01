@@ -37,9 +37,10 @@ public class ActivityController {
     }
 
     @CrossOrigin
-    @GetMapping("/getForStudent/{code}/{studentId}")
-    public ResponseEntity<?> getActivityForStudent(@PathVariable String code, @PathVariable String studentId) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not implemented");
+    @GetMapping("/getAvailable/{levelName}")
+    public ResponseEntity<?> getActivityForStudent(@PathVariable int levelName) {
+        return ResponseEntity.ok(activityService.getActivityForLevel(levelName));
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not implemented");
     }
 
     @CrossOrigin

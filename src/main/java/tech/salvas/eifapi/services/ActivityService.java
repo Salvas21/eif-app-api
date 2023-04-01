@@ -47,6 +47,16 @@ public class ActivityService implements IActivityService {
     }
 
     @Override
+    public List<ActivityDTO> getActivityForLevel(int level) {
+        List<Activity> activities = activityRepository.getActivitiesForLevel(level);
+        List<ActivityDTO> activityDTOS = new ArrayList<>();
+        for (var activity: activities) {
+            activityDTOS.add(new ActivityDTO(activity));
+        }
+        return activityDTOS;
+    }
+
+    @Override
     public List<String> getLevels() {
         return Arrays.asList("Débutant", "Intermédiaire", "Avancé");
     }
