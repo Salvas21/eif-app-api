@@ -4,17 +4,19 @@ import org.springframework.boot.json.JsonParser;
 import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tech.salvas.eifapi.dto.StudentDTO;
 import tech.salvas.eifapi.dto.UserDTO;
-import tech.salvas.eifapi.model.Activity;
-import tech.salvas.eifapi.model.Student;
-import tech.salvas.eifapi.model.User;
+import tech.salvas.eifapi.services.UserService;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/api")
 public class AuthController {
+    private final UserService userService;
+
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
 
     @CrossOrigin
     @PostMapping("/auth")
@@ -23,8 +25,8 @@ public class AuthController {
         Map<String, Object> credentials = springParser.parseMap(jsonString);
 
         UserDTO user = ((boolean)credentials.get("isAdmin"))
-                ? new UserDTO(new User("Admin", "Name", "ADMIN12345678", true))
-                : new StudentDTO(new Student("Martin", "Sandwich", "SANM12345678", 2, new Activity[] {new Activity("ACT12", "Test", "Description", "2")}));
+                ? this.userService.getAdmin()
+                : this.userService.getRandomStudent();
 
         return ResponseEntity.ok(user);
     }
