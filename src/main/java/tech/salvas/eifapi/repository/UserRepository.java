@@ -2,6 +2,7 @@ package tech.salvas.eifapi.repository;
 
 import org.springframework.stereotype.Repository;
 import tech.salvas.eifapi.model.Activity;
+import tech.salvas.eifapi.model.Choice;
 import tech.salvas.eifapi.model.Student;
 import tech.salvas.eifapi.model.User;
 
@@ -14,8 +15,8 @@ public class UserRepository {
 
     public UserRepository() {
         this.users.add(new User("Admin", "Name", "ADMIN12345678", true));
-        this.users.add(new Student("Martin", "Sandwich", "SANM12345678", 2, new Activity[] {new Activity("ACT12", "Test", "Description", "2")}));
-        this.users.add(new Student("Bob", "Bob", "BOBB87654321", 1, new Activity[] {new Activity("BEG11", "Beginner", "A beginner task", "1"), new Activity("BEG22", "Another", "An other beginner task", "1")}));
+        this.users.add(new Student("Martin", "Sandwich", "SANM12345678", 2, new Choice[] {new Choice(new Activity("ACT12", "Test", "Description", "2"), 1)}));
+        this.users.add(new Student("Bob", "Bob", "BOBB87654321", 1, new Choice[] {new Choice(new Activity("BEG11", "Beginner", "A beginner task", "1"), 1), new Choice(new Activity("BEG22", "Another", "An other beginner task", "1"), 2)}));
     }
 
     public List<User> getUsers() {
