@@ -10,7 +10,6 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/auto-select")
 public class AutomaticSelectionController {
-
     UserService userService;
 
     public AutomaticSelectionController(UserService userService) {
@@ -18,7 +17,7 @@ public class AutomaticSelectionController {
     }
 
     @CrossOrigin
-    @PostMapping("/generate")
+    @GetMapping("/generate")
     public ResponseEntity<List<StudentDTO>> login() {
         List<StudentDTO> students = this.userService.getStudents();
         int i = 0;

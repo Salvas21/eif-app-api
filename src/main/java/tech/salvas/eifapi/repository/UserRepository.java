@@ -13,10 +13,10 @@ import java.util.List;
 public class UserRepository {
     private final List<User> users = new ArrayList<>();
 
-    public UserRepository() {
+    public UserRepository(ActivityRepository repository) {
         this.users.add(new User("Admin", "Name", "ADMIN12345678", true));
-        this.users.add(new Student("Martin", "Sandwich", "SANM12345678", 2, new Choice[] {new Choice(new Activity("ACT12", "Test", "Description", "2"), 1)}));
-        this.users.add(new Student("Bob", "Bob", "BOBB87654321", 1, new Choice[] {new Choice(new Activity("BEG11", "Beginner", "A beginner task", "1"), 1), new Choice(new Activity("BEG22", "Another", "An other beginner task", "1"), 2)}));
+        this.users.add(new Student("Martin", "Sandwich", "SANM12345678", 2, new Choice[] {new Choice(repository.getActivities().get(4), 1)}));
+        this.users.add(new Student("Bob", "Bob", "BOBB87654321", 1, new Choice[] {new Choice(repository.getActivities().get(5), 1), new Choice(repository.getActivities().get(6), 2), new Choice(repository.getActivities().get(2), 3)}));
     }
 
     public List<User> getUsers() {
