@@ -3,6 +3,7 @@ package tech.salvas.eifapi.repository;
 import org.springframework.stereotype.Repository;
 import tech.salvas.eifapi.dto.ActivityDTO;
 import tech.salvas.eifapi.model.Activity;
+import tech.salvas.eifapi.model.Choice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,19 @@ public class ActivityRepository {
                 return activity;
         }
         return new Activity();
+    }
+
+    public List<Activity> getActivitiesFor(String cp) {
+        // I know its scummy but it works for now
+        var arrayList = new ArrayList<Activity>();
+        if (cp.equalsIgnoreCase("SANM12345678")) {
+            arrayList.add(activities.get(4));
+            return arrayList;
+        }
+        arrayList.add(activities.get(5));
+        arrayList.add(activities.get(6));
+        arrayList.add(activities.get(2));
+        return arrayList;
     }
 
     public boolean add(ActivityDTO activityDTO) {

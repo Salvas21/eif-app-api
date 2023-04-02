@@ -12,6 +12,8 @@ public interface IActivityService {
     List<ActivityDTO> getAll();
     ActivityDTO get(String code);
 
+    List<ActivityDTO> getCurrentForStudent(String cp);
+
     List<ActivityDTO> getActivityForLevel(int level);
     List<String> getLevels();
 }

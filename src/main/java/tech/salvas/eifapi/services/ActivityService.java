@@ -47,6 +47,16 @@ public class ActivityService implements IActivityService {
     }
 
     @Override
+    public List<ActivityDTO> getCurrentForStudent(String cp) {
+        List<Activity> activities = activityRepository.getActivitiesFor(cp);
+        List<ActivityDTO> activityDTOS = new ArrayList<>();
+        for (var activity: activities) {
+            activityDTOS.add(new ActivityDTO(activity));
+        }
+        return activityDTOS;
+    }
+
+    @Override
     public List<ActivityDTO> getActivityForLevel(int level) {
         List<Activity> activities = activityRepository.getActivitiesForLevel(level);
         List<ActivityDTO> activityDTOS = new ArrayList<>();
