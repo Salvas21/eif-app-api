@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import tech.salvas.eifapi.dto.ActivityDTO;
 import tech.salvas.eifapi.services.IActivityService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,19 +30,7 @@ public class ActivityController {
     }
 
     @CrossOrigin
-    @GetMapping("/test-for-levels")
-    public ResponseEntity<List<String>> getAllLevels() {
-        var list = new ArrayList<String>();
-        list.add("GOO");
-        list.add("GOO");
-        list.add("GA");
-        list.add("GA");
-
-        return ResponseEntity.ok(list);
-    }
-
     @GetMapping("/getLevels")
-    @CrossOrigin
     public ResponseEntity<List<String>> getLevels() {
         return ResponseEntity.ok(activityService.getLevels());
     }
