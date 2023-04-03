@@ -31,7 +31,7 @@ public class ActivityController {
     }
 
     @CrossOrigin
-    @GetMapping("/get-levels")
+    @GetMapping("/test-for-levels")
     public ResponseEntity<List<String>> getAllLevels() {
         var list = new ArrayList<String>();
         list.add("GOO");
