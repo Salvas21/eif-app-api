@@ -27,6 +27,8 @@ SPACE_SECRET=""
 SPACE_ENDPOINT=""
 SPACE_REGION=""
 SPACE_BUCKET=""
+
+CROSS_ORIGIN_ENDPOINT="http://localhost:4200"
 ```
 
 After that, to run the API with the current variables, run the following commands:

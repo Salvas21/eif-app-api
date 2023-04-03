@@ -6,6 +6,9 @@ do:
     region: ${SPACE_REGION}
     bucket: ${SPACE_BUCKET}
 
+cors:
+  endpoint: ${CROSS_ORIGIN_ENDPOINT}
+
 server:
   address: "0.0.0.0"
 
