@@ -29,6 +29,12 @@ public class ActivityController {
         return ResponseEntity.ok(activity);
     }
 
+    @CrossOrigin
+    @GetMapping("/get-levels")
+    public ResponseEntity<List<String>> getAllLevels() {
+        return ResponseEntity.ok(activityService.getLevels());
+    }
+
     @GetMapping("/getLevels")
     @CrossOrigin
     public ResponseEntity<List<String>> getLevels() {
