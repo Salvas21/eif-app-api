@@ -10,6 +10,7 @@ import tech.salvas.eifapi.model.File;
 import tech.salvas.eifapi.services.IFileService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,6 +59,14 @@ public class FileController {
         List<File> files = fileService.getAll(activityID);
 
         return ResponseEntity.ok(files.stream().map(post -> modelMapper.map(post, FileDTO.class)).collect(Collectors.toList()));
+    }
+
+    @CrossOrigin
+    @GetMapping("/test")
+    public ResponseEntity<List<String>> test() {
+        var list = new ArrayList<String>();
+        list.add("HAAAAAAAAAAAAAAA");
+        return ResponseEntity.ok(list);
     }
 
     @CrossOrigin
