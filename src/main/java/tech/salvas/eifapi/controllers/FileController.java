@@ -34,9 +34,9 @@ public class FileController {
         }
 
         // 50MB
-//        if (file.getSize() > 50000000) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is too large (Maximum file size: 50MB)");
-//        }
+        if (file.getSize() > 50000000) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is too large (Maximum file size: 50MB)");
+        }
 
         try {
             fileService.save(file, activityID);
