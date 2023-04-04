@@ -10,7 +10,6 @@ import tech.salvas.eifapi.model.File;
 import tech.salvas.eifapi.services.IFileService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,13 +27,8 @@ public class FileController {
     }
 
 
-    @CrossOrigin
     @PostMapping("/upload")
     public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file, @RequestParam("activityID") String activityID) {
-        // id
-        // atelier-id
-        // filename
-        // link / cdn-name
         if (file.getSize() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is invalid");
         }
@@ -53,7 +47,6 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.OK).body("File uploaded");
     }
 
-    @CrossOrigin
     @GetMapping("/get/{activityID}")
     public ResponseEntity<List<FileDTO>> getAll(@PathVariable("activityID") String activityID) {
         List<File> files = fileService.getAll(activityID);
@@ -61,22 +54,12 @@ public class FileController {
         return ResponseEntity.ok(files.stream().map(post -> modelMapper.map(post, FileDTO.class)).collect(Collectors.toList()));
     }
 
-    @CrossOrigin
-    @GetMapping("/test")
-    public ResponseEntity<List<String>> test() {
-        var list = new ArrayList<String>();
-        list.add("HAAAAAAAAAAAAAAA");
-        return ResponseEntity.ok(list);
-    }
-
-    @CrossOrigin
     @GetMapping("/get/{activityID}/download/{key}")
     public ResponseEntity<String> get(@PathVariable("activityID") String activityID, @PathVariable("key") String key) {
         String url = fileService.get(activityID, key);
         return ResponseEntity.ok(url);
     }
 
-    @CrossOrigin
     @GetMapping("/get/{activityID}/delete/{key}")
     public ResponseEntity<String> delete(@PathVariable("activityID") String activityID, @PathVariable("key") String key) {
         fileService.delete(activityID, key);
