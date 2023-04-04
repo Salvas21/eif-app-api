@@ -17,3 +17,5 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
+  mvc:
+    dispatch-options-request: true
