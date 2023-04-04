@@ -26,7 +26,7 @@ public class FileController {
         this.modelMapper = modelMapper;
     }
 
-
+    @CrossOrigin
     @PostMapping("/upload")
     public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file, @RequestParam("activityID") String activityID) {
         if (file.getSize() == 0) {
@@ -34,9 +34,9 @@ public class FileController {
         }
 
         // 50MB
-        if (file.getSize() > 50000000) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is too large (Maximum file size: 50MB)");
-        }
+//        if (file.getSize() > 50000000) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is too large (Maximum file size: 50MB)");
+//        }
 
         try {
             fileService.save(file, activityID);
@@ -47,6 +47,7 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.OK).body("File uploaded");
     }
 
+    @CrossOrigin
     @GetMapping("/get/{activityID}")
     public ResponseEntity<List<FileDTO>> getAll(@PathVariable("activityID") String activityID) {
         List<File> files = fileService.getAll(activityID);
@@ -54,12 +55,14 @@ public class FileController {
         return ResponseEntity.ok(files.stream().map(post -> modelMapper.map(post, FileDTO.class)).collect(Collectors.toList()));
     }
 
+    @CrossOrigin
     @GetMapping("/get/{activityID}/download/{key}")
     public ResponseEntity<String> get(@PathVariable("activityID") String activityID, @PathVariable("key") String key) {
         String url = fileService.get(activityID, key);
         return ResponseEntity.ok(url);
     }
 
+    @CrossOrigin
     @GetMapping("/get/{activityID}/delete/{key}")
     public ResponseEntity<String> delete(@PathVariable("activityID") String activityID, @PathVariable("key") String key) {
         fileService.delete(activityID, key);
