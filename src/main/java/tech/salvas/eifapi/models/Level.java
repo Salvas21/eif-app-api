@@ -1,35 +1,31 @@
 package tech.salvas.eifapi.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
-@NoArgsConstructor
+@Entity
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Entity
-public class Student {
+public class Level {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String email;
-    private String password;
-    private String cp;
-    private String first_name;
-    private String last_name;
-    @ManyToOne
-    private Level level;
+    private String name;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Student student = (Student) o;
-        return getId() != null && Objects.equals(getId(), student.getId());
+        Level level = (Level) o;
+        return getId() != null && Objects.equals(getId(), level.getId());
     }
 
     @Override
