@@ -1,7 +1,7 @@
-package tech.salvas.eifapi.model;
+package tech.salvas.eifapi.models;
 
 import lombok.Data;
-import tech.salvas.eifapi.dto.FileDTO;
+import tech.salvas.eifapi.dtos.FileDTO;
 
 @Data
 public class File {

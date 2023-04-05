@@ -1,6 +1,6 @@
 package tech.salvas.eifapi.services;
 
-import tech.salvas.eifapi.dto.ActivityDTO;
+import tech.salvas.eifapi.dtos.ActivityDTO;
 
 import java.util.List;
 

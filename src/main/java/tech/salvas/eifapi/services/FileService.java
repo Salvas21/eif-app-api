@@ -3,11 +3,10 @@ package tech.salvas.eifapi.services;
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
-import com.amazonaws.services.s3.transfer.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import tech.salvas.eifapi.model.File;
+import tech.salvas.eifapi.models.File;
 
 import java.io.IOException;
 import java.net.URL;

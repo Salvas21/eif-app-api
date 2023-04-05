@@ -1,4 +1,4 @@
-package tech.salvas.eifapi.model;
+package tech.salvas.eifapi.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

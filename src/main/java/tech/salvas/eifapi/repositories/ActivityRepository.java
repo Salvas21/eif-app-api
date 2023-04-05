@@ -1,9 +1,8 @@
-package tech.salvas.eifapi.repository;
+package tech.salvas.eifapi.repositories;
 
 import org.springframework.stereotype.Repository;
-import tech.salvas.eifapi.dto.ActivityDTO;
-import tech.salvas.eifapi.model.Activity;
-import tech.salvas.eifapi.model.Choice;
+import tech.salvas.eifapi.dtos.ActivityDTO;
+import tech.salvas.eifapi.models.Activity;
 
 import java.util.ArrayList;
 import java.util.List;

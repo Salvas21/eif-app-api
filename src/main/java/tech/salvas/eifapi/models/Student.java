@@ -1,4 +1,4 @@
-package tech.salvas.eifapi.model;
+package tech.salvas.eifapi.models;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

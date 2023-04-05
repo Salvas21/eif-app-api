@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import tech.salvas.eifapi.dto.FileDTO;
-import tech.salvas.eifapi.model.File;
+import tech.salvas.eifapi.dtos.FileDTO;
+import tech.salvas.eifapi.models.File;
 import tech.salvas.eifapi.services.IFileService;
 
 import java.io.IOException;

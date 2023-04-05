@@ -2,11 +2,11 @@ package tech.salvas.eifapi.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tech.salvas.eifapi.dto.StudentDTO;
-import tech.salvas.eifapi.dto.UserDTO;
-import tech.salvas.eifapi.model.Student;
-import tech.salvas.eifapi.model.User;
-import tech.salvas.eifapi.repository.UserRepository;
+import tech.salvas.eifapi.dtos.StudentDTO;
+import tech.salvas.eifapi.dtos.UserDTO;
+import tech.salvas.eifapi.models.Student;
+import tech.salvas.eifapi.models.User;
+import tech.salvas.eifapi.repositories.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;

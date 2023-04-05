@@ -4,7 +4,7 @@ import org.springframework.boot.json.JsonParser;
 import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tech.salvas.eifapi.dto.UserDTO;
+import tech.salvas.eifapi.dtos.UserDTO;
 import tech.salvas.eifapi.services.UserService;
 
 import java.util.Map;

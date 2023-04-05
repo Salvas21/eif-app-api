@@ -1,10 +1,9 @@
-package tech.salvas.eifapi.repository;
+package tech.salvas.eifapi.repositories;
 
 import org.springframework.stereotype.Repository;
-import tech.salvas.eifapi.model.Activity;
-import tech.salvas.eifapi.model.Choice;
-import tech.salvas.eifapi.model.Student;
-import tech.salvas.eifapi.model.User;
+import tech.salvas.eifapi.models.Choice;
+import tech.salvas.eifapi.models.Student;
+import tech.salvas.eifapi.models.User;
 
 import java.util.ArrayList;
 import java.util.List;

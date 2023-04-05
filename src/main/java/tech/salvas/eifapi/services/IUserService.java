@@ -1,6 +1,6 @@
 package tech.salvas.eifapi.services;
 
-import tech.salvas.eifapi.dto.UserDTO;
+import tech.salvas.eifapi.dtos.UserDTO;
 
 import java.util.List;
 

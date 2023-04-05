@@ -1,8 +1,8 @@
-package tech.salvas.eifapi.dto;
+package tech.salvas.eifapi.dtos;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import tech.salvas.eifapi.model.User;
+import tech.salvas.eifapi.models.User;
 
 @NoArgsConstructor
 @Data

@@ -2,7 +2,7 @@ package tech.salvas.eifapi.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tech.salvas.eifapi.dto.ActivityDTO;
+import tech.salvas.eifapi.dtos.ActivityDTO;
 import tech.salvas.eifapi.services.IActivityService;
 
 import java.util.List;

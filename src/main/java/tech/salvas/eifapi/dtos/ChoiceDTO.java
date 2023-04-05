@@ -1,9 +1,8 @@
-package tech.salvas.eifapi.dto;
+package tech.salvas.eifapi.dtos;
 
 import lombok.Data;
-import tech.salvas.eifapi.model.Activity;
-import tech.salvas.eifapi.model.Choice;
-import tech.salvas.eifapi.model.Student;
+import tech.salvas.eifapi.models.Activity;
+import tech.salvas.eifapi.models.Choice;
 
 @Data
 public class ChoiceDTO {
