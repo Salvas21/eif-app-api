@@ -1,28 +1,41 @@
 package tech.salvas.eifapi.models;
 
-import lombok.Data;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.*;
+import org.hibernate.Hibernate;
 
-@Data
+import java.util.Objects;
+
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@AllArgsConstructor
+@Entity
+@NoArgsConstructor
 public class Activity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String code;
     private String name;
-    private String description;
-    private String level;
-
+    private String description
     private int activityLevel;
 
-    public Activity(String code, String name, String description, String level) {
-        this.code = code;
-        this.description = description;
-        this.name = name;
-        this.level = level;
-        if (level.equals("Débutant"))
-            activityLevel = 0;
-        if (level.equals("Intermédiaire"))
-            activityLevel = 1;
-        if (level.equals("Avancé"))
-            activityLevel = 2;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Activity activity = (Activity) o;
+        return getId() != null && Objects.equals(getId(), activity.getId());
     }
 
-    public Activity() {};
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

@@ -28,8 +28,21 @@ SPACE_ENDPOINT=""
 SPACE_REGION=""
 SPACE_BUCKET=""
 
+DB_URL="jdbc:postgresql://{host}:25060/{DB}?sslmode=require&sslcert=./src/main/resources/database/certificates/ca-certificate.crt"
+DB_USER=""
+DB_PASSWORD=""
+
 CROSS_ORIGIN_ENDPOINT="http://localhost:4200"
 ```
+
+For the database configuration in IntelliJ, simply put: 
+- host
+- user
+- password
+- port = 25060
+- Database
+- SSL mode activated with CA certificate
+- Database version 15.2
 
 After that, to run the API with the current variables, run the following commands:
 
@@ -41,3 +54,19 @@ After that, to run the API with the current variables, run the following command
     ```
     mvn spring-boot:run
     ```
+   
+Now you can simply run the execute script:
+```
+./execute.sh
+```
+
+## Debug
+
+Sometimes we need to clean stuff
+```
+mvn clean
+mvn clean install -U
+# etc
+```
+
+Also don't forget to reload the pom.xml
