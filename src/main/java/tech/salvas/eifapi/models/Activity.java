@@ -23,7 +23,7 @@ public class Activity {
 
     private String code;
     private String name;
-    private String description
+    private String description;
     private int activityLevel;
 
     @Override
