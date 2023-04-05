@@ -22,7 +22,8 @@ public class CrossOriginConfig {
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
+//        config.setAllowCredentials(true);
+        config.setAllowCredentials(false);
 //        config.setAllowedOrigins(Collections.singletonList(crossOriginEndpoint));
         config.setAllowedOrigins(Collections.singletonList("*"));
         config.setAllowedHeaders(Collections.singletonList("*"));
