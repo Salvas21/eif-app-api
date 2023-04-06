@@ -30,7 +30,7 @@ public class StudentDTO extends UserDTO {
         }
     }
 
-    public StudentDTO(Student student) {
-        this(student, student.getLevel(), student.getChoices());
+    public void setChoices(List<ChoiceDTO> choices) {
+        this.choices = choices;
     }
 }

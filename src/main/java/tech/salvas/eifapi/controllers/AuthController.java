@@ -20,7 +20,7 @@ public class AuthController {
 
     @CrossOrigin
     @PostMapping("/auth")
-    public ResponseEntity<UserDTO> login(@RequestBody String jsonString) {
+    public ResponseEntity<UserDTO> login(@RequestBody String jsonString) throws Exception {
         JsonParser springParser = JsonParserFactory.getJsonParser();
         Map<String, Object> credentials = springParser.parseMap(jsonString);
 

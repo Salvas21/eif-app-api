@@ -2,11 +2,18 @@ package tech.salvas.eifapi.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import tech.salvas.eifapi.dtos.ChoiceDTO;
 import tech.salvas.eifapi.dtos.StudentDTO;
 import tech.salvas.eifapi.dtos.UserDTO;
+import tech.salvas.eifapi.mappers.IChoiceDTOChoiceMapper;
+import tech.salvas.eifapi.mappers.IUserDTOAdminMapper;
+import tech.salvas.eifapi.mappers.IUserDTOStudentMapper;
+import tech.salvas.eifapi.models.Admin;
+import tech.salvas.eifapi.models.Choice;
 import tech.salvas.eifapi.models.Student;
-import tech.salvas.eifapi.models.User;
-import tech.salvas.eifapi.repositories.UserRepository;
+import tech.salvas.eifapi.repositories.AdminRepository;
+import tech.salvas.eifapi.repositories.ChoiceRepository;
+import tech.salvas.eifapi.repositories.StudentRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +22,12 @@ import java.util.Random;
 @AllArgsConstructor
 @Service
 public class UserService implements IUserService {
-    private UserRepository userRepository;
+    private AdminRepository adminRepository;
+    private StudentRepository studentRepository;
+    private ChoiceRepository choiceRepository;
+    private IUserDTOStudentMapper studentMapper;
+    private IUserDTOAdminMapper adminMapper;
+    private IChoiceDTOChoiceMapper choiceMapper;
 
     @Override
     public void save() {
@@ -35,28 +47,34 @@ public class UserService implements IUserService {
     @Override
     public List<UserDTO> getAll() {
         List<UserDTO> users = new ArrayList<>();
-        for (User user : userRepository.getUsers())
-            users.add(new UserDTO(user));
+        for (Student student : studentRepository.findAll())
+            users.add(studentMapper.studentToUserDTO(student));
+        for (Admin admin : adminRepository.findAll())
+            users.add(adminMapper.adminToUserDTO(admin));
         return users;
     }
 
     @Override
     public UserDTO get(String key) {
-        return new UserDTO(userRepository.getUsers().stream().filter(user -> user.getCp().equalsIgnoreCase(key)).findFirst().orElse(new User()));
+        return null;
     }
 
     @Override
     public UserDTO getAt(int index) {
-        return new UserDTO(userRepository.userAt(index));
-    }
-
-    public StudentDTO getStudent() {
-        Student student = userRepository.getStudent();
-        return (student != null) ? new StudentDTO(student) : null;
+        return null;
     }
 
     public List<StudentDTO> getStudents() {
-        return userRepository.getUsers().stream().filter(user -> user instanceof Student).map(student -> new StudentDTO((Student) student)).toList();
+        List<StudentDTO> studentsDTO = new ArrayList<>();
+        for (Student student : studentRepository.findStudents().orElseThrow()) {
+            var studentDTO = studentMapper.studentToStudentDTO(student);
+            List<ChoiceDTO> choicesDTO = new ArrayList<>();
+            for (Choice choice : choiceRepository.findChoicesByStudentId(student).orElseThrow())
+                choicesDTO.add(choiceMapper.choiceToChoiceDTO(choice));
+            studentDTO.setChoices(choicesDTO);
+            studentsDTO.add(studentDTO);
+        }
+        return studentsDTO;
     }
 
     public StudentDTO getRandomStudent() {
@@ -65,7 +83,7 @@ public class UserService implements IUserService {
     }
 
     public UserDTO getAdmin() {
-        User admin = userRepository.getAdmin();
-        return (admin != null) ? new UserDTO(admin) : null;
+        Admin admin = adminRepository.findAdmins().orElseThrow().get(0);
+        return adminMapper.adminToUserDTO(admin);
     }
 }
