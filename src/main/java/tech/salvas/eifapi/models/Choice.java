@@ -23,6 +23,7 @@ public class Choice {
     @ManyToOne
     private Student studentId;
     private int preference;
+    private boolean selected;
     private LocalDateTime dateSubmitted = LocalDateTime.now();
 
     @Override

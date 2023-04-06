@@ -6,12 +6,14 @@ import tech.salvas.eifapi.models.Choice;
 
 @Data
 public class ChoiceDTO {
-    private Activity activity;
+    private ActivityDTO activity;
+    private StudentDTO student;
     private int preference;
     private boolean selected;
 
     public ChoiceDTO(Choice choice) {
-        this.activity = choice.getActivity();
+        this.activity = new ActivityDTO(choice.getActivity());
+        this.student = new StudentDTO(choice.getStudentId());
         this.preference = choice.getPreference();
         this.selected = choice.isSelected();
     }

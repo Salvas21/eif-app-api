@@ -7,14 +7,15 @@ import tech.salvas.eifapi.models.User;
 @NoArgsConstructor
 @Data
 public class UserDTO {
-    private  String fName;
-    private String lName;
+    private long id;
+    private  String first_name;
+    private String last_name;
     private String cp;
     private boolean isAdmin;
 
     public UserDTO(User user) {
-        this.fName = user.getFName();
-        this.lName = user.getLName();
+        this.first_name = user.getFName();
+        this.last_name = user.getLName();
         this.cp = user.getCp();
         this.isAdmin = user.isAdmin();
     }
