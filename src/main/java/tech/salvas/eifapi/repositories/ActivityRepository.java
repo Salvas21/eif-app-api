@@ -13,12 +13,16 @@ import java.util.Optional;
 @Repository
 public interface ActivityRepository extends CrudRepository<Activity, String> {
 
-    Optional<Activity> findActivityById(Long id);
+    Optional<Activity> findActivityByCode(String code);
 
     Optional<List<Activity>> findActivities();
     Optional<List<Activity>> findActivitiesByActivityLevel(int level);
 
+    Optional<List<Activity>> findActivitiesByActivityLevelIsLessThanEqual(int level);
+
     void updateActivityById(Long id);
-    void updateActivityByCode(String code);
+    boolean updateActivityByCode(String code, Activity activity);
+
+    void saveActivity(Activity activity);
 
 }

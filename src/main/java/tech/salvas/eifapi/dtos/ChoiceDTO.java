@@ -13,7 +13,7 @@ public class ChoiceDTO {
 
     public ChoiceDTO(Choice choice) {
         this.activity = new ActivityDTO(choice.getActivity());
-        this.student = new StudentDTO(choice.getStudentId());
+//        this.student = new StudentDTO(choice.getStudentId());
         this.preference = choice.getPreference();
         this.selected = choice.isSelected();
     }

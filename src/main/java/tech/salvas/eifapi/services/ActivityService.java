@@ -5,20 +5,31 @@ import tech.salvas.eifapi.dtos.ActivityDTO;
 import tech.salvas.eifapi.models.Activity;
 import tech.salvas.eifapi.repositories.ActivityRepository;
 
+import tech.salvas.eifapi.mappers.IActivityDTOActivityMapper;
+import tech.salvas.eifapi.repositories.AttendanceRepository;
+import tech.salvas.eifapi.repositories.StudentRepository;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ActivityService implements IActivityService {
 
     private ActivityRepository activityRepository;
+
+    private AttendanceRepository attendanceRepository;
+    private StudentRepository studentRepository;
+
+    private IActivityDTOActivityMapper mapper;
     public ActivityService(ActivityRepository repository) {
         this.activityRepository = repository;
     }
     @Override
     public void save(ActivityDTO activityDTO) {
-        activityRepository.add(activityDTO);
+//        activityRepository.add(activityDTO);
+        activityRepository.saveActivity(mapper.activityDTOToActivity(activityDTO));
     }
 
     @Override
@@ -28,40 +39,41 @@ public class ActivityService implements IActivityService {
 
     @Override
     public boolean update(ActivityDTO activityDTO, String code) {
-        return activityRepository.modify(activityDTO, code);
+        return activityRepository.updateActivityByCode(code, mapper.activityDTOToActivity(activityDTO));
     }
 
     @Override
     public List<ActivityDTO> getAll() {
-        List<Activity> activities = activityRepository.getActivities();
         List<ActivityDTO> activityDTOS = new ArrayList<>();
-        for (var activity: activities) {
-            activityDTOS.add(new ActivityDTO(activity));
+        for (Activity activity:  activityRepository.findActivities().orElseThrow()) {
+            activityDTOS.add(mapper.activityToActivityDTO(activity));
         }
         return activityDTOS;
     }
 
     @Override
     public ActivityDTO get(String code) {
-        return new ActivityDTO(activityRepository.getActivity(code));
+        var activity = activityRepository.findActivityByCode(code).orElse(null);
+        return mapper.activityToActivityDTO(activity);
     }
 
     @Override
     public List<ActivityDTO> getCurrentForStudent(String cp) {
-        List<Activity> activities = activityRepository.getActivitiesFor(cp);
         List<ActivityDTO> activityDTOS = new ArrayList<>();
-        for (var activity: activities) {
-            activityDTOS.add(new ActivityDTO(activity));
+        var student = studentRepository.findStudentByCp(cp).orElse(null);
+        for (var attendance: attendanceRepository.findAttendancesByStudentId(student).orElseThrow()) {
+            activityDTOS.add(mapper.activityToActivityDTO(attendance.getActivity()));
         }
         return activityDTOS;
     }
 
     @Override
     public List<ActivityDTO> getActivityForLevel(int level) {
-        List<Activity> activities = activityRepository.getActivitiesForLevel(level);
+//        List<Activity> activities = activityRepository.getActivitiesForLevel(level);
+//        Optional<List<Activity>> activities = activityRepository.findActivitiesByActivityLevel(level);
         List<ActivityDTO> activityDTOS = new ArrayList<>();
-        for (var activity: activities) {
-            activityDTOS.add(new ActivityDTO(activity));
+        for (var activity: activityRepository.findActivitiesByActivityLevelIsLessThanEqual(level).orElseThrow()) {
+            activityDTOS.add(mapper.activityToActivityDTO(activity));
         }
         return activityDTOS;
     }
