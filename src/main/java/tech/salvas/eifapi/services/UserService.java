@@ -66,7 +66,7 @@ public class UserService implements IUserService {
 
     public List<StudentDTO> getStudents() {
         List<StudentDTO> studentsDTO = new ArrayList<>();
-        for (Student student : studentRepository.findStudents().orElseThrow()) {
+        for (Student student : studentRepository.findAll()) {
             var studentDTO = studentMapper.studentToStudentDTO(student);
             List<ChoiceDTO> choicesDTO = new ArrayList<>();
             for (Choice choice : choiceRepository.findChoicesByStudentId(student).orElseThrow())

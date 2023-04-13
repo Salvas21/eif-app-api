@@ -1,5 +1,6 @@
 package tech.salvas.eifapi.services;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.salvas.eifapi.dtos.ActivityDTO;
 import tech.salvas.eifapi.models.Activity;
@@ -14,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class ActivityService implements IActivityService {
 
@@ -23,13 +25,12 @@ public class ActivityService implements IActivityService {
     private StudentRepository studentRepository;
 
     private IActivityDTOActivityMapper mapper;
-    public ActivityService(ActivityRepository repository) {
-        this.activityRepository = repository;
-    }
+
     @Override
     public void save(ActivityDTO activityDTO) {
 //        activityRepository.add(activityDTO);
-        activityRepository.saveActivity(mapper.activityDTOToActivity(activityDTO));
+//        activityRepository.saveActivity(mapper.activityDTOToActivity(activityDTO));
+        activityRepository.save(mapper.activityDTOToActivity(activityDTO));
     }
 
     @Override
@@ -39,13 +40,18 @@ public class ActivityService implements IActivityService {
 
     @Override
     public boolean update(ActivityDTO activityDTO, String code) {
-        return activityRepository.updateActivityByCode(code, mapper.activityDTOToActivity(activityDTO));
+        Activity oldActivity = activityRepository.findActivityByCode(code).orElseThrow();
+        Activity newActivity = mapper.activityDTOToActivity(activityDTO);
+        newActivity.setId(oldActivity.getId());
+        activityRepository.save(newActivity);
+        return true;
+//        return activityRepository.updateActivityByCode(code, mapper.activityDTOToActivity(activityDTO));
     }
 
     @Override
     public List<ActivityDTO> getAll() {
         List<ActivityDTO> activityDTOS = new ArrayList<>();
-        for (Activity activity:  activityRepository.findActivities().orElseThrow()) {
+        for (Activity activity:  activityRepository.findAll()) {
             activityDTOS.add(mapper.activityToActivityDTO(activity));
         }
         return activityDTOS;

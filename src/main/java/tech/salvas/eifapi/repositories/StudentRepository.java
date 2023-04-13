@@ -9,9 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface StudentRepository extends CrudRepository<Student, Long> {
-
-    Optional<List<Student>> findStudents();
-
     Optional<Student> findStudentByEmailAndPassword(String email, String password);
 
     Optional<Student> findStudentByCpAndPassword(String cp, String password);
