@@ -15,7 +15,7 @@ public class ActivityDTO {
         this.code = activity.getCode();
         this.name = activity.getName();
         this.description = activity.getDescription();
-        this.level = activity.getActivityLevel();
+        this.level = activity.getLevelId();
     }
 
     public ActivityDTO() {}

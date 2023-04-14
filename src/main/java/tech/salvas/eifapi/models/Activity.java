@@ -1,9 +1,6 @@
 package tech.salvas.eifapi.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -22,7 +19,7 @@ public class Activity {
     private String code;
     private String name;
     private String description;
-    private int activityLevel;
+    private int levelId;
 
     @Override
     public boolean equals(Object o) {

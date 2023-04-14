@@ -83,7 +83,7 @@ public class ActivityService implements IActivityService {
 //        List<Activity> activities = activityRepository.getActivitiesForLevel(level);
 //        Optional<List<Activity>> activities = activityRepository.findActivitiesByActivityLevel(level);
         List<ActivityDTO> activityDTOS = new ArrayList<>();
-        for (var activity: activityRepository.findActivitiesByActivityLevelIsLessThanEqual(level).orElseThrow()) {
+        for (var activity: activityRepository.findActivitiesByLevelIdIsLessThanEqual(level).orElseThrow()) {
             activityDTOS.add(mapper.toDTO(activity));
         }
         return activityDTOS;

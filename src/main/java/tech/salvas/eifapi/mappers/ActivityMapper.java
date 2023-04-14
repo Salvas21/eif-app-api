@@ -8,7 +8,7 @@ public class ActivityMapper implements Mapper<Activity, ActivityDTO> {
         var dto = new ActivityDTO();
         dto.setCode(activity.getCode());
         dto.setName(activity.getName());
-        dto.setLevel(activity.getActivityLevel());
+        dto.setLevel(activity.getLevelId());
         dto.setDescription(activity.getDescription());
         return dto;
     }
@@ -16,7 +16,7 @@ public class ActivityMapper implements Mapper<Activity, ActivityDTO> {
         var entity = new Activity();
         entity.setCode(activityDTO.getCode());
         entity.setName(activityDTO.getName());
-        entity.setActivityLevel(activityDTO.getLevel());
+        entity.setLevelId(activityDTO.getLevel());
         entity.setDescription(activityDTO.getDescription());
         return entity;
     }
