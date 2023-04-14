@@ -25,6 +25,11 @@ public class ActivityService implements IActivityService {
     private StudentRepository studentRepository;
 
     private IActivityDTOActivityMapper mapper;
+    public ActivityService(ActivityRepository repository, AttendanceRepository attendanceRepository, StudentRepository studentRepository) {
+        this.activityRepository = repository;
+        this.attendanceRepository = attendanceRepository;
+        this.studentRepository = studentRepository;
+    }
 
     @Override
     public void save(ActivityDTO activityDTO) {
@@ -68,7 +73,7 @@ public class ActivityService implements IActivityService {
         List<ActivityDTO> activityDTOS = new ArrayList<>();
         var student = studentRepository.findStudentByCp(cp).orElse(null);
         for (var attendance: attendanceRepository.findAttendancesByStudentId(student).orElseThrow()) {
-            activityDTOS.add(mapper.activityToActivityDTO(attendance.getActivity()));
+//            activityDTOS.add(mapper.activityToActivityDTO(attendance.getActivity()));
         }
         return activityDTOS;
     }

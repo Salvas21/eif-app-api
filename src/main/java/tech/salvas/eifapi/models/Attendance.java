@@ -16,10 +16,8 @@ import java.util.Objects;
 public class Attendance {
     @Id
     private Long id;
-    @ManyToOne
-    private Activity activity;
-    @ManyToOne
-    private Student studentId;
+    private Long activity;
+    private Long studentId;
     private String session = "";
     private boolean finished = false;
 
