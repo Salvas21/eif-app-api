@@ -11,7 +11,6 @@ import java.util.Optional;
 @Repository
 public interface AdminRepository extends CrudRepository<Admin, Long> {
 
-    Optional<List<Admin>> findAdmins();
 
     Optional<Admin> findAdminByEmailAndPassword(String email, String password);
 

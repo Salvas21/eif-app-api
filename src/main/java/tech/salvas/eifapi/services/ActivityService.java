@@ -6,16 +6,14 @@ import tech.salvas.eifapi.dtos.ActivityDTO;
 import tech.salvas.eifapi.models.Activity;
 import tech.salvas.eifapi.repositories.ActivityRepository;
 
-import tech.salvas.eifapi.mappers.IActivityDTOActivityMapper;
+import tech.salvas.eifapi.mappers.ActivityMapper;
 import tech.salvas.eifapi.repositories.AttendanceRepository;
 import tech.salvas.eifapi.repositories.StudentRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
-@AllArgsConstructor
 @Service
 public class ActivityService implements IActivityService {
 
@@ -24,18 +22,20 @@ public class ActivityService implements IActivityService {
     private AttendanceRepository attendanceRepository;
     private StudentRepository studentRepository;
 
-    private IActivityDTOActivityMapper mapper;
+    private ActivityMapper mapper = new ActivityMapper();
+
     public ActivityService(ActivityRepository repository, AttendanceRepository attendanceRepository, StudentRepository studentRepository) {
         this.activityRepository = repository;
         this.attendanceRepository = attendanceRepository;
         this.studentRepository = studentRepository;
     }
 
+
     @Override
     public void save(ActivityDTO activityDTO) {
 //        activityRepository.add(activityDTO);
 //        activityRepository.saveActivity(mapper.activityDTOToActivity(activityDTO));
-        activityRepository.save(mapper.activityDTOToActivity(activityDTO));
+        activityRepository.save(mapper.toEntity(activityDTO));
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ActivityService implements IActivityService {
     @Override
     public boolean update(ActivityDTO activityDTO, String code) {
         Activity oldActivity = activityRepository.findActivityByCode(code).orElseThrow();
-        Activity newActivity = mapper.activityDTOToActivity(activityDTO);
+        Activity newActivity = mapper.toEntity(activityDTO);
         newActivity.setId(oldActivity.getId());
         activityRepository.save(newActivity);
         return true;
@@ -57,7 +57,7 @@ public class ActivityService implements IActivityService {
     public List<ActivityDTO> getAll() {
         List<ActivityDTO> activityDTOS = new ArrayList<>();
         for (Activity activity:  activityRepository.findAll()) {
-            activityDTOS.add(mapper.activityToActivityDTO(activity));
+            activityDTOS.add(mapper.toDTO(activity));
         }
         return activityDTOS;
     }
@@ -65,7 +65,7 @@ public class ActivityService implements IActivityService {
     @Override
     public ActivityDTO get(String code) {
         var activity = activityRepository.findActivityByCode(code).orElse(null);
-        return mapper.activityToActivityDTO(activity);
+        return mapper.toDTO(activity);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class ActivityService implements IActivityService {
         List<ActivityDTO> activityDTOS = new ArrayList<>();
         var student = studentRepository.findStudentByCp(cp).orElse(null);
         for (var attendance: attendanceRepository.findAttendancesByStudentId(student).orElseThrow()) {
-//            activityDTOS.add(mapper.activityToActivityDTO(attendance.getActivity()));
+//            activityDTOS.add(mapper.toDTO(attendance.getActivity()));
         }
         return activityDTOS;
     }
@@ -84,7 +84,7 @@ public class ActivityService implements IActivityService {
 //        Optional<List<Activity>> activities = activityRepository.findActivitiesByActivityLevel(level);
         List<ActivityDTO> activityDTOS = new ArrayList<>();
         for (var activity: activityRepository.findActivitiesByActivityLevelIsLessThanEqual(level).orElseThrow()) {
-            activityDTOS.add(mapper.activityToActivityDTO(activity));
+            activityDTOS.add(mapper.toDTO(activity));
         }
         return activityDTOS;
     }

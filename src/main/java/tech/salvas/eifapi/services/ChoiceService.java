@@ -2,8 +2,10 @@ package tech.salvas.eifapi.services;
 
 import org.springframework.stereotype.Service;
 import tech.salvas.eifapi.dtos.ChoiceDTO;
+import tech.salvas.eifapi.models.Choice;
 import tech.salvas.eifapi.repositories.ChoiceRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,7 +33,10 @@ public class ChoiceService implements IChoiceService {
 
     @Override
     public List<ChoiceDTO> getAll() {
-        return choiceRepository.findChoices().map(choices -> choices.stream().map(ChoiceDTO::new).toList()).orElse(null);
+        var choicesList = new ArrayList<Choice>();
+        choiceRepository.findAll().iterator().forEachRemaining(choicesList::add);
+        // TODO : change DTO
+        return choicesList.stream().map(ChoiceDTO::new).toList();
     }
 
     @Override

@@ -10,9 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface ChoiceRepository extends CrudRepository<Choice, Long> {
-    Optional<List<Choice>> findChoices();
     @Override
     Optional<Choice> findById(Long id);
-    Optional<List<Choice>> findChoicesByActivityId(Long activity_id);
-    Optional<List<Choice>> findChoicesByStudentId(Student student);
+    Optional<List<Choice>> findChoicesByStudentId(Long studentId);
 }

@@ -12,7 +12,7 @@ public class ChoiceDTO {
     private boolean selected;
 
     public ChoiceDTO(Choice choice) {
-        this.activity = new ActivityDTO(choice.getActivity());
+//        this.activity = new ActivityDTO(choice.getActivity());
 //        this.student = new StudentDTO(choice.getStudentId());
         this.preference = choice.getPreference();
         this.selected = choice.isSelected();

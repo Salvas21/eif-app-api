@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tech.salvas.eifapi.dtos.FileDTO;
+import tech.salvas.eifapi.mappers.FileMapper;
 import tech.salvas.eifapi.models.File;
 import tech.salvas.eifapi.services.IFileService;
 
@@ -18,12 +19,11 @@ import java.util.stream.Collectors;
 public class FileController {
 
     private final IFileService fileService;
-    private final ModelMapper modelMapper;
+    private final FileMapper fileMapper = new FileMapper();
 
-    public FileController(IFileService IFileService, ModelMapper modelMapper) {
+    public FileController(IFileService IFileService) {
         // https://github.com/gladius/spring-boot-digital-ocean-spaces
         this.fileService = IFileService;
-        this.modelMapper = modelMapper;
     }
 
     @CrossOrigin
@@ -52,7 +52,7 @@ public class FileController {
     public ResponseEntity<List<FileDTO>> getAll(@PathVariable("activityID") String activityID) {
         List<File> files = fileService.getAll(activityID);
 
-        return ResponseEntity.ok(files.stream().map(post -> modelMapper.map(post, FileDTO.class)).collect(Collectors.toList()));
+        return ResponseEntity.ok(files.stream().map(fileMapper::toDTO).collect(Collectors.toList()));
     }
 
     @CrossOrigin
