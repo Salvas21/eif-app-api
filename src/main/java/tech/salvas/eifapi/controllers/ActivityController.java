@@ -44,6 +44,7 @@ public class ActivityController {
     @CrossOrigin
     @GetMapping("/getCurrent/{cp}")
     public ResponseEntity<?> getActivityForStudent(@PathVariable String cp) {
+
         return ResponseEntity.ok(activityService.getCurrentForStudent(cp));
 //        return ResponseEntity.ok(activityService.getActivityForLevel(levelName));
     }

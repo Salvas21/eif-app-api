@@ -26,8 +26,8 @@ public class AuthController {
 
         UserDTO user = ((boolean)credentials.get("isAdmin"))
                 ? this.userService.getAdmin()
-                : this.userService.getRandomStudent();
-
+                : this.userService.getStudent(credentials.get("email").toString(), credentials.get("password").toString());
+        System.out.println(user.getFirst_name());
         return ResponseEntity.ok(user);
     }
 }

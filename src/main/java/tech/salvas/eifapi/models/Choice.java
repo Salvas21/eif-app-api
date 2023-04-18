@@ -18,7 +18,7 @@ import java.util.Objects;
 public class Choice {
     @Id
     private Long id;
-    private Long activity;
+    private Long activityId;
     private Long studentId;
     private int preference;
     private boolean selected;

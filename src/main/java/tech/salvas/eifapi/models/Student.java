@@ -18,10 +18,9 @@ public class Student {
     private String email;
     private String password;
     private String cp;
-    private String first_name;
-    private String last_name;
-    @ManyToOne
-    private Level level;
+    private String firstName;
+    private String lastName;
+    private Long levelId;
 
     @Override
     public boolean equals(Object o) {

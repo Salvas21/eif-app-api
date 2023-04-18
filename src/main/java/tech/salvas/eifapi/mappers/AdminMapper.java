@@ -9,8 +9,8 @@ public class AdminMapper implements Mapper<Admin, UserDTO> {
         var dto = new UserDTO();
         dto.setAdmin(true);
         dto.setCp(admin.getCe());
-        dto.setFirst_name(admin.getFirst_name());
-        dto.setLast_name(admin.getLast_name());
+        dto.setFirst_name(admin.getFirstName());
+        dto.setLast_name(admin.getLastName());
         return dto;
     }
 
@@ -18,8 +18,8 @@ public class AdminMapper implements Mapper<Admin, UserDTO> {
     public Admin toEntity(UserDTO userDTO) {
         var entity = new Admin();
         entity.setCe(userDTO.getCp());
-        entity.setFirst_name(userDTO.getFirst_name());
-        entity.setLast_name(userDTO.getLast_name());
+        entity.setFirstName(userDTO.getFirst_name());
+        entity.setLastName(userDTO.getLast_name());
         return entity;
     }
 }
