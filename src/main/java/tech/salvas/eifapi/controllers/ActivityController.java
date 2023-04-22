@@ -36,9 +36,9 @@ public class ActivityController {
     }
 
     @CrossOrigin
-    @GetMapping("/getAvailable/{levelName}")
-    public ResponseEntity<?> getActivityForStudent(@PathVariable int levelName) {
-        return ResponseEntity.ok(activityService.getActivityForLevel(levelName));
+    @GetMapping("/getAvailable/{cp}")
+    public ResponseEntity<?> getActivitiesAvailable(@PathVariable String cp) {
+        return ResponseEntity.ok(activityService.getActivityAvailableForStudent(cp));
     }
 
     @CrossOrigin

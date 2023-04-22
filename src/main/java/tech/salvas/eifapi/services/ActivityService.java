@@ -70,20 +70,19 @@ public class ActivityService implements IActivityService {
     public List<ActivityDTO> getCurrentForStudent(String cp) {
         List<ActivityDTO> activityDTOS = new ArrayList<>();
         var student = studentRepository.findStudentByCp(cp).orElse(null);
-        System.out.println(student);
-        for (var attendance: attendanceRepository.findAttendancesByStudentId(student).orElseThrow()) {
-//            activityDTOS.add(mapper.toDTO(attendance.getActivity()));
-            activityDTOS.add(mapper.toDTO(activityRepository.findActivityByCode(attendance.getActivity().toString()).orElseThrow()));
+        for (var attendance: attendanceRepository.findAttendancesByStudentId(student.getId()).orElseThrow()) {
+            activityDTOS.add(mapper.toDTO(activityRepository.findById(attendance.getActivityId()).orElseThrow()));
         }
         return activityDTOS;
     }
 
     @Override
-    public List<ActivityDTO> getActivityForLevel(int level) {
-//        List<Activity> activities = activityRepository.getActivitiesForLevel(level);
-//        Optional<List<Activity>> activities = activityRepository.findActivitiesByActivityLevel(level);
+    public List<ActivityDTO> getActivityAvailableForStudent(String cp) {
         List<ActivityDTO> activityDTOS = new ArrayList<>();
-        for (var activity: activityRepository.findActivitiesByLevelIdIsLessThanEqual(level).orElseThrow()) {
+        var level = studentRepository.findStudentByCp(cp).orElseThrow().getLevelId();
+//        System.out.println(level);
+//        System.out.println(activityRepository.findActivitiesByLevelIdIsLessThanEqual(level.intValue()));
+        for (var activity: activityRepository.findActivitiesByLevelIdIsLessThanEqual(level.intValue()).orElseThrow()) {
             activityDTOS.add(mapper.toDTO(activity));
         }
         return activityDTOS;

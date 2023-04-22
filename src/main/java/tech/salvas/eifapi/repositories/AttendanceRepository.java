@@ -9,5 +9,5 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface AttendanceRepository extends CrudRepository<Attendance, Long> {
-    Optional<List<Attendance>> findAttendancesByStudentId(Student student);
+    Optional<List<Attendance>> findAttendancesByStudentId(Long id);
 }

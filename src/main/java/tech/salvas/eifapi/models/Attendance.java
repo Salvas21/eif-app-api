@@ -16,7 +16,7 @@ import java.util.Objects;
 public class Attendance {
     @Id
     private Long id;
-    private Long activity;
+    private Long activityId;
     private Long studentId;
     private String session = "";
     private boolean finished = false;
