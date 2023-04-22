@@ -3,10 +3,9 @@ package tech.salvas.eifapi.controllers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.salvas.eifapi.dtos.ChoiceDTO;
-import tech.salvas.eifapi.dtos.SlimStudentDTO;
 import tech.salvas.eifapi.dtos.StudentChoiceDTO;
-import tech.salvas.eifapi.dtos.StudentDTO;
 import tech.salvas.eifapi.services.IChoiceService;
+import tech.salvas.eifapi.services.UserService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,9 +16,11 @@ import java.util.Map;
 @RequestMapping(path = "/api/auto-select")
 public class AutomaticSelectionController {
     IChoiceService choiceService;
+    UserService userService;
 
-    public AutomaticSelectionController(IChoiceService choiceService) {
+    public AutomaticSelectionController(IChoiceService choiceService, UserService userService) {
         this.choiceService = choiceService;
+        this.userService = userService;
     }
 
     @CrossOrigin
@@ -29,12 +30,12 @@ public class AutomaticSelectionController {
         Map<Long, StudentChoiceDTO> studentChoices = new HashMap<>();
 
         for (ChoiceDTO choice : choices) {
-            if (studentChoices.containsKey(choice.getStudent().getId())) {
-                studentChoices.get(choice.getStudent().getId()).getChoices().add(choice);
+            if (studentChoices.containsKey(choice.getStudentId())) {
+                studentChoices.get(choice.getStudentId()).getChoices().add(choice);
             } else {
-                StudentChoiceDTO sc = new StudentChoiceDTO(new SlimStudentDTO(choice.getStudent()), new ArrayList<>());
+                StudentChoiceDTO sc = new StudentChoiceDTO(userService.getStudentById(choice.getStudentId()), new ArrayList<>());
                 sc.getChoices().add(choice);
-                studentChoices.put(choice.getStudent().getId(), sc);
+                studentChoices.put(choice.getStudentId(), sc);
             }
         }
 

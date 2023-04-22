@@ -10,6 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StudentChoiceDTO {
-    private SlimStudentDTO student;
+    private StudentDTO student;
     private List<ChoiceDTO> choices;
 }

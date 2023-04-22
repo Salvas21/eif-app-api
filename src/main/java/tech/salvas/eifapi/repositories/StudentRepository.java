@@ -15,5 +15,7 @@ public interface StudentRepository extends CrudRepository<Student, Long> {
 
     Optional<Student> findStudentByCp(String cp);
 
+    Optional<Student> findStudentById(Long id);
+
 //    Optional<UserInfo> findUserInfoByEmailAndPassword(String email, String password);
 }

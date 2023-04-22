@@ -69,6 +69,11 @@ public class UserService implements IUserService {
         return null;
     }
 
+    public StudentDTO getStudentById(Long id) {
+        var student = this.studentRepository.findStudentById(id).orElseThrow();
+        return studentMapper.toDTO(student);
+    }
+
     public List<StudentDTO> getStudents() {
         List<StudentDTO> studentsDTO = new ArrayList<>();
         for (Student student : studentRepository.findAll()) {
