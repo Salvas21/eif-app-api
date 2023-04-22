@@ -16,6 +16,7 @@ import tech.salvas.eifapi.repositories.StudentRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 @Service
@@ -81,12 +82,12 @@ public class UserService implements IUserService {
         return studentsDTO;
     }
 
-    public StudentDTO getStudent(String email, String password) {
+    public StudentDTO getStudent(String email, String password) throws NoSuchElementException {
         var student = (email.contains("@")) ? studentRepository.findStudentByEmailAndPassword(email, password).orElseThrow() : studentRepository.findStudentByCpAndPassword(email, password).orElseThrow();
         return studentMapper.toDTO(student);
     }
 
-    public UserDTO getAdmin(String email, String password) {
+    public UserDTO getAdmin(String email, String password) throws NoSuchElementException {
         var admin = (email.contains("@")) ? adminRepository.findAdminByEmailAndPassword(email, password).orElseThrow() : adminRepository.findAdminByCeAndPassword(email, password).orElseThrow() ;
         return adminMapper.toDTO(admin);
     }
