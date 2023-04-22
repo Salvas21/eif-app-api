@@ -25,9 +25,8 @@ public class AuthController {
         Map<String, Object> credentials = springParser.parseMap(jsonString);
 
         UserDTO user = ((boolean)credentials.get("isAdmin"))
-                ? this.userService.getAdmin()
+                ? this.userService.getAdmin(credentials.get("email").toString(), credentials.get("password").toString())
                 : this.userService.getStudent(credentials.get("email").toString(), credentials.get("password").toString());
-        System.out.println(user.getFirst_name());
         return ResponseEntity.ok(user);
     }
 }

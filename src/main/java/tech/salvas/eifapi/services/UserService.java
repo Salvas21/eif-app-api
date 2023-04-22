@@ -82,15 +82,12 @@ public class UserService implements IUserService {
     }
 
     public StudentDTO getStudent(String email, String password) {
-        //todo: Check for cp or email
-        var student = studentRepository.findStudentByEmailAndPassword(email, password).orElseThrow();
+        var student = (email.contains("@")) ? studentRepository.findStudentByEmailAndPassword(email, password).orElseThrow() : studentRepository.findStudentByCpAndPassword(email, password).orElseThrow();
         return studentMapper.toDTO(student);
-//        List<StudentDTO> students = getStudents();
-//        return students.get(new Random().nextInt(students.size()));
     }
 
-    public UserDTO getAdmin() {
-        Admin admin = adminRepository.findAll().iterator().next();
+    public UserDTO getAdmin(String email, String password) {
+        var admin = (email.contains("@")) ? adminRepository.findAdminByEmailAndPassword(email, password).orElseThrow() : adminRepository.findAdminByCeAndPassword(email, password).orElseThrow() ;
         return adminMapper.toDTO(admin);
     }
 }

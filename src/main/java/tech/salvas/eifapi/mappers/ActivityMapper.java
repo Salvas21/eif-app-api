@@ -10,6 +10,7 @@ public class ActivityMapper implements Mapper<Activity, ActivityDTO> {
         dto.setName(activity.getName());
         dto.setLevel(activity.getLevelId());
         dto.setDescription(activity.getDescription());
+        dto.setLevelName();
         return dto;
     }
     public Activity toEntity(ActivityDTO activityDTO) {
