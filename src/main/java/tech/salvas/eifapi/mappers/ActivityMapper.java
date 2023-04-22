@@ -17,8 +17,18 @@ public class ActivityMapper implements Mapper<Activity, ActivityDTO> {
         var entity = new Activity();
         entity.setCode(activityDTO.getCode());
         entity.setName(activityDTO.getName());
-        entity.setLevelId(activityDTO.getLevel());
+        entity.setLevelId(getLevelIdFromName(activityDTO.getLevelName()));
         entity.setDescription(activityDTO.getDescription());
         return entity;
+    }
+
+    private int getLevelIdFromName(String levelName) {
+        if (levelName.equalsIgnoreCase("Débutant")) {
+            return 1;
+        }
+        if (levelName.equalsIgnoreCase("Intermédiaire")) {
+            return 2;
+        }
+        return 3;
     }
 }

@@ -44,16 +44,13 @@ public class ActivityController {
     @CrossOrigin
     @GetMapping("/getCurrent/{cp}")
     public ResponseEntity<?> getActivityForStudent(@PathVariable String cp) {
-
         return ResponseEntity.ok(activityService.getCurrentForStudent(cp));
-//        return ResponseEntity.ok(activityService.getActivityForLevel(levelName));
     }
 
     @CrossOrigin
     @PutMapping("/modify/{code}")
     public ResponseEntity<?> updateActivity(@RequestBody ActivityDTO activityDTO, @PathVariable String code) {
         var success = activityService.update(activityDTO, code);
-        System.out.println("Received something");
         return ResponseEntity.ok("Activity ajouter: " + success);
     }
 

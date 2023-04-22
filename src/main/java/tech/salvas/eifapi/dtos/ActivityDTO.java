@@ -23,12 +23,12 @@ public class ActivityDTO {
 
     public ActivityDTO() {}
 
-    public void setLevelName() {
-        changeLevelName();
+    public String getLevelName() {
+        return levelName;
     }
 
-    public String getLevelName() {
-        return this.levelName;
+    public void setLevelName() {
+        changeLevelName();
     }
 
     private void changeLevelName() {
