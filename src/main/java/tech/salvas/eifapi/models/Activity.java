@@ -20,6 +20,7 @@ public class Activity {
     private String name;
     private String description;
     private int levelId;
+    private int places;
 
     @Override
     public boolean equals(Object o) {

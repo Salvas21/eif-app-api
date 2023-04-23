@@ -3,7 +3,6 @@ package tech.salvas.eifapi.controllers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.salvas.eifapi.dtos.StudentDTO;
-import tech.salvas.eifapi.dtos.UserDTO;
 import tech.salvas.eifapi.services.UserService;
 
 import java.util.List;
@@ -15,12 +14,6 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
-    }
-
-    @CrossOrigin
-    @GetMapping("/all")
-    public ResponseEntity<List<UserDTO>> getUsers() {
-        return ResponseEntity.ok(this.userService.getAll());
     }
 
     @CrossOrigin

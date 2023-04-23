@@ -1,7 +1,6 @@
 package tech.salvas.eifapi.dtos;
 
 import lombok.Data;
-import tech.salvas.eifapi.models.Activity;
 
 @Data
 public class ActivityDTO {
@@ -10,16 +9,9 @@ public class ActivityDTO {
     private String name;
     private String description;
     private int level;
+    private int places;
 
     private String levelName = "";
-
-    public ActivityDTO(Activity activity) {
-        this.code = activity.getCode();
-        this.name = activity.getName();
-        this.description = activity.getDescription();
-        this.level = activity.getLevelId();
-        changeLevelName();
-    }
 
     public ActivityDTO() {}
 
