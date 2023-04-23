@@ -7,7 +7,6 @@ import tech.salvas.eifapi.mappers.AdminMapper;
 import tech.salvas.eifapi.mappers.StudentMapper;
 import tech.salvas.eifapi.models.Student;
 import tech.salvas.eifapi.repositories.AdminRepository;
-import tech.salvas.eifapi.repositories.ChoiceRepository;
 import tech.salvas.eifapi.repositories.StudentRepository;
 
 import java.util.ArrayList;
@@ -16,12 +15,12 @@ import java.util.NoSuchElementException;
 
 @Service
 public class UserService implements IUserService {
-    private AdminRepository adminRepository;
-    private StudentRepository studentRepository;
-    private StudentMapper studentMapper = new StudentMapper();
-    private AdminMapper adminMapper = new AdminMapper();
+    private final AdminRepository adminRepository;
+    private final StudentRepository studentRepository;
+    private final StudentMapper studentMapper = new StudentMapper();
+    private final AdminMapper adminMapper = new AdminMapper();
 
-    public UserService(AdminRepository adminRepository, StudentRepository studentRepository, ChoiceRepository choiceRepository) {
+    public UserService(AdminRepository adminRepository, StudentRepository studentRepository) {
         this.adminRepository = adminRepository;
         this.studentRepository = studentRepository;
     }

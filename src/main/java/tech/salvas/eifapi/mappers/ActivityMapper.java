@@ -6,6 +6,7 @@ import tech.salvas.eifapi.models.Activity;
 public class ActivityMapper implements Mapper<Activity, ActivityDTO> {
     public ActivityDTO toDTO(Activity activity) {
         var dto = new ActivityDTO();
+        dto.setId(activity.getId());
         dto.setCode(activity.getCode());
         dto.setName(activity.getName());
         dto.setLevel(activity.getLevelId());
@@ -16,6 +17,7 @@ public class ActivityMapper implements Mapper<Activity, ActivityDTO> {
     }
     public Activity toEntity(ActivityDTO activityDTO) {
         var entity = new Activity();
+        entity.setId(activityDTO.getId());
         entity.setCode(activityDTO.getCode());
         entity.setName(activityDTO.getName());
         entity.setLevelId(getLevelIdFromName(activityDTO.getLevelName()));

@@ -10,10 +10,7 @@ import tech.salvas.eifapi.services.ActivityService;
 import tech.salvas.eifapi.services.IChoiceService;
 import tech.salvas.eifapi.services.UserService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping(path = "/api/auto-select")
@@ -32,6 +29,7 @@ public class AutomaticSelectionController {
     @GetMapping("/generate")
     public ResponseEntity<List<StudentChoiceDTO>> login() {
         List<ChoiceDTO> choices = this.choiceService.getAll();
+        Map<Long, Integer> placeTracker = new HashMap<>();
         Map<Long, StudentChoiceDTO> studentChoices = new HashMap<>();
 
         for (ChoiceDTO choice : choices) {
@@ -42,13 +40,23 @@ public class AutomaticSelectionController {
                 sc.getChoices().add(choiceActivityDTOFromChoiceDTO(choice));
                 studentChoices.put(choice.getStudentId(), sc);
             }
+            // Init the place tracker by adding every activity that have inscriptions
+            placeTracker.putIfAbsent(choice.getActivityId(), 0);
         }
 
-        // TODO: implement automatic selection
         List<StudentChoiceDTO> students = new ArrayList<>(studentChoices.values());
-        int i = 0;
+
+        // Insure students are sorted by first come, first served
+        students.sort(Comparator.comparingLong(a -> a.getStudent().getId()));
+
         for (StudentChoiceDTO student : students)
-            student.getChoices().get(i++ % student.getChoices().size()).setSelected(true);
+            for (ChoiceActivityDTO choice : student.getChoices()) {
+                if (placeTracker.get(choice.getActivity().getId()) < choice.getActivity().getPlaces()) {
+                    choice.setSelected(true);
+                    placeTracker.put(choice.getActivity().getId(), placeTracker.get(choice.getActivity().getId()) + 1);
+                    break;
+                }
+            }
 
         return ResponseEntity.ok(students);
     }

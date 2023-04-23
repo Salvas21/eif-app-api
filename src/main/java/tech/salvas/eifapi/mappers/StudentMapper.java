@@ -11,6 +11,7 @@ public class StudentMapper implements Mapper<Student, StudentDTO> {
         dto.setFirst_name(student.getFirstName());
         dto.setLast_name(student.getLastName());
         dto.setCp(student.getCp());
+        dto.setId(student.getId());
         return dto;
     }
 
@@ -20,6 +21,7 @@ public class StudentMapper implements Mapper<Student, StudentDTO> {
         student.setFirstName(studentDTO.getFirst_name());
         student.setLastName(studentDTO.getLast_name());
         student.setCp(studentDTO.getCp());
+        student.setId(studentDTO.getId());
         return student;
     }
 }
