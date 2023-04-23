@@ -12,6 +12,8 @@ public interface IActivityService {
     List<ActivityDTO> getAll();
     ActivityDTO get(String code);
 
+    ActivityDTO getById(Long id);
+
     List<ActivityDTO> getCurrentForStudent(String cp);
 
     List<ActivityDTO> getActivityAvailableForStudent(String cp);

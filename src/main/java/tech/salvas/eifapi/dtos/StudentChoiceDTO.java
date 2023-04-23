@@ -11,5 +11,5 @@ import java.util.List;
 @NoArgsConstructor
 public class StudentChoiceDTO {
     private StudentDTO student;
-    private List<ChoiceDTO> choices;
+    private List<ChoiceActivityDTO> choices;
 }

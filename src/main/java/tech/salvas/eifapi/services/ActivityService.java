@@ -1,7 +1,5 @@
 package tech.salvas.eifapi.services;
 
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.salvas.eifapi.dtos.ActivityDTO;
 import tech.salvas.eifapi.models.Activity;
@@ -64,6 +62,11 @@ public class ActivityService implements IActivityService {
     public ActivityDTO get(String code) {
         var activity = activityRepository.findActivityByCode(code).orElse(null);
         return mapper.toDTO(activity);
+    }
+
+    @Override
+    public ActivityDTO getById(Long id) {
+        return mapper.toDTO(activityRepository.findById(id).orElseThrow());
     }
 
     @Override
