@@ -9,5 +9,5 @@ public class ChoiceDTO {
     private Long activityId;
     private Long studentId;
     private int preference;
-    private boolean selected;
+    private boolean selected = false;
 }

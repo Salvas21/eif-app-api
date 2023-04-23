@@ -51,13 +51,13 @@ public class ActivityController {
     @PutMapping("/modify/{code}")
     public ResponseEntity<?> updateActivity(@RequestBody ActivityDTO activityDTO, @PathVariable String code) {
         var success = activityService.update(activityDTO, code);
-        return ResponseEntity.ok("Activity ajouter: " + success);
+        return ResponseEntity.ok("");
     }
 
     @CrossOrigin
     @PostMapping("/add")
-    public ResponseEntity<?> addActivity(@RequestBody ActivityDTO activity) {
+    public ResponseEntity<String> addActivity(@RequestBody ActivityDTO activity) {
         this.activityService.save(activity);
-        return ResponseEntity.ok("Activity has been added");
+        return ResponseEntity.ok("");
     }
 }
