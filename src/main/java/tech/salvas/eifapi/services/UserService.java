@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.salvas.eifapi.configs.security.AppUserDetails;
 import tech.salvas.eifapi.configs.security.JwtService;
+import tech.salvas.eifapi.dtos.AuthDTO;
 import tech.salvas.eifapi.dtos.StudentDTO;
 import tech.salvas.eifapi.dtos.UserDTO;
 import tech.salvas.eifapi.mappers.AdminMapper;
@@ -76,51 +77,49 @@ public class UserService implements IUserService {
         return studentsDTO;
     }
 
-    public StudentDTO getStudent(String email, String password) throws NoSuchElementException {
-        var student = (email.contains("@")) ? studentRepository.findStudentByEmailAndPassword(email, password).orElseThrow() : studentRepository.findStudentByCpAndPassword(email, password).orElseThrow();
-        return studentMapper.toDTO(student);
-    }
-
-    public UserDTO getAdmin(String email, String password) throws NoSuchElementException {
-        var admin = (email.contains("@")) ? adminRepository.findAdminByEmailAndPassword(email, password).orElseThrow() : adminRepository.findAdminByCeAndPassword(email, password).orElseThrow() ;
-        return adminMapper.toDTO(admin);
-    }
-
-    public void registerAdmin() {
-        var admin = new Admin();
-        admin.setCe("QWER12341234");
-        admin.setEmail("admin@qwer.com");
-        admin.setFirstName("Martin");
-        admin.setLastName("Sandwich");
-        admin.setPassword(passwordEncoder.encode("Omega123"));
-        System.out.println("BONJOUR");
-        adminRepository.save(admin);
-
-        var appUserDetails = new AppUserDetails();
-        appUserDetails.setRole("admin");
-        appUserDetails.setUsername(admin.getCe());
-        appUserDetails.setEmail(admin.getEmail());
-        appUserDetails.setPassword(admin.getPassword());
-
-        System.out.println(jwtService.generateToken(appUserDetails));
-    }
-
-    public void authenticateAdmin() {
-        // set email = subject
-        String email = "";
-        String password = "";
+    public AuthDTO authenticate(String subject, String password, boolean isAdmin) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(email, password)
+                new UsernamePasswordAuthenticationToken(subject, password)
         );
-        // authenticated
-        var admin = adminRepository.findByEmailOrCe(email, email).orElseThrow();
+
+        return isAdmin ? generateAdminResponse(subject) : generateStudentResponse(subject);
+    }
+
+    private AuthDTO generateAdminResponse(String subject) {
+        var admin = adminRepository.findByEmailOrCe(subject, subject).orElseThrow();
 
         var appUserDetails = new AppUserDetails();
         appUserDetails.setRole("admin");
-        appUserDetails.setUsername(admin.getCe());
-        appUserDetails.setEmail(admin.getEmail());
+
+        if (subject.contains("@")) {
+            appUserDetails.setEmail(admin.getEmail());
+        } else {
+            appUserDetails.setUsername(admin.getCe());
+        }
+
         appUserDetails.setPassword(admin.getPassword());
 
-        System.out.println(jwtService.generateToken(appUserDetails));
+        var token = jwtService.generateToken(appUserDetails);
+
+        return new AuthDTO(token, adminMapper.toDTO(admin));
+    }
+
+    private AuthDTO generateStudentResponse(String subject) {
+        var student = studentRepository.findByEmailOrCp(subject, subject).orElseThrow();
+
+        var appUserDetails = new AppUserDetails();
+        appUserDetails.setRole("student");
+
+        if (subject.contains("@")) {
+            appUserDetails.setEmail(student.getEmail());
+        } else {
+            appUserDetails.setUsername(student.getCp());
+        }
+
+        appUserDetails.setPassword(student.getPassword());
+
+        var token = jwtService.generateToken(appUserDetails);
+
+        return new AuthDTO(token, studentMapper.toDTO(student));
     }
 }

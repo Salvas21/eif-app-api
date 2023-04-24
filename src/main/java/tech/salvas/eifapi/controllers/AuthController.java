@@ -5,14 +5,14 @@ import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tech.salvas.eifapi.dtos.UserDTO;
+import tech.salvas.eifapi.dtos.AuthDTO;
 import tech.salvas.eifapi.services.UserService;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/auth")
 public class AuthController {
     private final UserService userService;
 
@@ -21,27 +21,22 @@ public class AuthController {
     }
 
     @CrossOrigin
-    @PostMapping("/auth")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody String jsonString) {
         JsonParser springParser = JsonParserFactory.getJsonParser();
         Map<String, Object> credentials = springParser.parseMap(jsonString);
         try {
-            UserDTO user = ((boolean) credentials.get("isAdmin"))
-                ? this.userService.getAdmin(credentials.get("email").toString(), credentials.get("password").toString())
-                : this.userService.getStudent(credentials.get("email").toString(), credentials.get("password").toString());
-
-            return ResponseEntity.ok(user);
+            String subject = credentials.get("email").toString();
+            String password = credentials.get("password").toString();
+            boolean isAdmin = (boolean) credentials.get("isAdmin");
+            // if credentials don't match any of admin or students, returns a 403 forbidden
+            AuthDTO authDTO = this.userService.authenticate(subject, password, isAdmin);
+            return ResponseEntity.ok(authDTO);
         } catch (NoSuchElementException exception) {
+            // happens when a student tries to log in as an admin or vice versa
             return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body("Identifiants invalides");
         }
-    }
-
-    @CrossOrigin
-    @GetMapping("/register")
-    public ResponseEntity<String> register() {
-        this.userService.registerAdmin();
-        return ResponseEntity.ok("");
     }
 }

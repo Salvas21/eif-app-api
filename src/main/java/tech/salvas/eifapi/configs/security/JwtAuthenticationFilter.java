@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,24 +20,27 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+    @Value("${eif-api.jwt.token-header}")
+    private String tokenHeader;
+
+    @Value("${eif-api.jwt.token-prefix}")
+    private String tokenPrefix;
+
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
-        final String authHeader = request.getHeader("Authorization");
+        final String authHeader = request.getHeader(tokenHeader);
         final String jwt;
         final String subject;
-        System.out.println("qwer1");
-        // TODO : change bearer to value in properties
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            System.out.println("qwer2");
+        if (authHeader == null || !authHeader.startsWith((tokenPrefix + " "))) {
             filterChain.doFilter(request, response);
             return;
         }
-        System.out.println("toto");
-        // 7 for : "Bearer "
-        jwt = authHeader.substring(7);
+
+        jwt = authHeader.substring(7); // 7 for : "Bearer "
         subject = jwtService.extractSubjectFromToken(jwt);
         if (subject != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             AppUserDetails appUserDetails = (AppUserDetails) this.userDetailsService.loadUserByUsername(subject);
