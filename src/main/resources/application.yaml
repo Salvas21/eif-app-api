@@ -12,6 +12,14 @@ cors:
 server:
   address: "0.0.0.0"
 
+eif-api:
+  jwt:
+    secret: '357538782F4125442A472D4B6150645367566B59703373367639792442264528'
+    token-prefix: 'Bearer'
+    token-header: 'Authorization'
+    token-expiration: 86400
+    token-issuer: 'EIF APP TFF'
+
 spring:
   datasource:
     url: ${DB_URL}

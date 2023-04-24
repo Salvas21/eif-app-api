@@ -16,7 +16,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class Level {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 

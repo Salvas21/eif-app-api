@@ -37,4 +37,11 @@ public class AuthController {
                 .body("Identifiants invalides");
         }
     }
+
+    @CrossOrigin
+    @GetMapping("/register")
+    public ResponseEntity<String> register() {
+        this.userService.registerAdmin();
+        return ResponseEntity.ok("");
+    }
 }

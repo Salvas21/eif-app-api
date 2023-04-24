@@ -2,6 +2,7 @@ package tech.salvas.eifapi.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import tech.salvas.eifapi.models.Admin;
 import tech.salvas.eifapi.models.Student;
 
 import java.util.List;
@@ -17,5 +18,6 @@ public interface StudentRepository extends CrudRepository<Student, Long> {
 
     Optional<Student> findStudentById(Long id);
 
-//    Optional<UserInfo> findUserInfoByEmailAndPassword(String email, String password);
+    Optional<Student> findByEmailOrCp(String email, String cp);
+
 }

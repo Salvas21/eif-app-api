@@ -15,4 +15,10 @@ public interface AdminRepository extends CrudRepository<Admin, Long> {
     Optional<Admin> findAdminByEmailAndPassword(String email, String password);
 
     Optional<Admin> findAdminByCeAndPassword(String ce, String password);
+
+    Optional<Admin> findAdminByEmail(String email);
+
+    Optional<Admin> findAdminByCe(String ce);
+
+    Optional<Admin> findByEmailOrCe(String email, String ce);
 }

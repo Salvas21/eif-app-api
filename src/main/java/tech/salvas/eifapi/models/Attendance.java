@@ -1,8 +1,6 @@
 package tech.salvas.eifapi.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -15,6 +13,7 @@ import java.util.Objects;
 @Entity
 public class Attendance {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long activityId;
     private Long studentId;
