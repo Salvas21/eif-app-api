@@ -90,13 +90,7 @@ public class UserService implements IUserService {
 
         var appUserDetails = new AppUserDetails();
         appUserDetails.setRole("admin");
-
-        if (subject.contains("@")) {
-            appUserDetails.setEmail(admin.getEmail());
-        } else {
-            appUserDetails.setUsername(admin.getCe());
-        }
-
+        appUserDetails.setUsername(admin.getCe());
         appUserDetails.setPassword(admin.getPassword());
 
         var token = jwtService.generateToken(appUserDetails);
@@ -109,13 +103,7 @@ public class UserService implements IUserService {
 
         var appUserDetails = new AppUserDetails();
         appUserDetails.setRole("student");
-
-        if (subject.contains("@")) {
-            appUserDetails.setEmail(student.getEmail());
-        } else {
-            appUserDetails.setUsername(student.getCp());
-        }
-
+        appUserDetails.setUsername(student.getCp());
         appUserDetails.setPassword(student.getPassword());
 
         var token = jwtService.generateToken(appUserDetails);

@@ -1,10 +1,12 @@
 package tech.salvas.eifapi.services;
 
 import org.springframework.stereotype.Service;
+import tech.salvas.eifapi.dtos.ActivityDTO;
+import tech.salvas.eifapi.dtos.ChoiceActivityDTO;
 import tech.salvas.eifapi.dtos.ChoiceDTO;
 import tech.salvas.eifapi.mappers.ActivityMapper;
 import tech.salvas.eifapi.mappers.ChoiceMapper;
-import tech.salvas.eifapi.mappers.ChoiceMapper;
+import tech.salvas.eifapi.models.Activity;
 import tech.salvas.eifapi.models.Choice;
 import tech.salvas.eifapi.repositories.ActivityRepository;
 import tech.salvas.eifapi.repositories.ChoiceRepository;
@@ -20,10 +22,12 @@ public class ChoiceService implements IChoiceService {
     private ActivityRepository activityRepository;
 
     private ChoiceMapper choiceMapper;
+    private ActivityMapper activityMapper;
 
     public ChoiceService(ChoiceRepository choiceRepository, StudentRepository studentRepository, ActivityRepository activityRepository) {
         this.choiceRepository = choiceRepository;
         this.choiceMapper = new ChoiceMapper();
+        this.activityMapper = new ActivityMapper();
         this.studentRepository = studentRepository;
         this.activityRepository = activityRepository;
     }
@@ -55,5 +59,15 @@ public class ChoiceService implements IChoiceService {
     @Override
     public ChoiceDTO get(long key) {
         return choiceRepository.findById(key).map(choiceMapper::toDTO).orElse(null);
+    }
+
+    public List<ActivityDTO> getStudentChoicesAsActivities(String cp) {
+        Long studentId = studentRepository.findStudentByCp(cp).orElseThrow().getId();
+        var choices = choiceRepository.findChoicesByStudentId(studentId);
+        var activities = new ArrayList<Activity>();
+
+        choices.forEach(choice -> activities.add(activityRepository.findActivityById(choice.getActivityId()).orElseThrow()));
+
+        return activities.stream().map(activityMapper::toDTO).toList();
     }
 }

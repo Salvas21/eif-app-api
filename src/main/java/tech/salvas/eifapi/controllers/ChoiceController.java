@@ -31,4 +31,10 @@ public class ChoiceController {
         }
         return ResponseEntity.ok("");
     }
+
+    @CrossOrigin
+    @GetMapping("/get/{cp}")
+    public ResponseEntity<List<ActivityDTO>> getChoicesOfStudentAsActivities(@PathVariable("cp") String cp) {
+        return ResponseEntity.ok(service.getStudentChoicesAsActivities(cp));
+    }
 }

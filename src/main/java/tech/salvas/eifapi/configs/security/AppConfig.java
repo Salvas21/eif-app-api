@@ -28,6 +28,7 @@ public class AppConfig {
     public UserDetailsService userDetailsService() {
         return username -> {
             // here subject (username) can be either email or CP / CE and of admin or student
+            // we choose to always use the CE / CP to identify user in JWT
             Optional<Student> studentOpt = studentRepository.findByEmailOrCp(username, username);
 
             if (studentOpt.isPresent()) {
@@ -44,7 +45,7 @@ public class AppConfig {
                     Admin admin = adminOpt.get();
                     AppUserDetails details = new AppUserDetails();
                     details.setRole("admin");
-                    details.setUsername(admin.getEmail());
+                    details.setUsername(admin.getCe());
                     details.setPassword(admin.getPassword());
                     return details;
                 } else {

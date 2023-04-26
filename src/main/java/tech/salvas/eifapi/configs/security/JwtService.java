@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,12 +40,17 @@ public class JwtService {
     }
 
     public String generateToken(Map<String, Object> extractClaims, AppUserDetails appUserDetails) {
+        Calendar calendar = Calendar.getInstance();
+        Date issued = calendar.getTime();
+        calendar.add(Calendar.SECOND, Integer.parseInt(tokenExpiration));
+        Date exp = calendar.getTime();
+
         return Jwts
                 .builder()
                 .setClaims(extractClaims)
                 .setSubject(appUserDetails.getUsername())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(tokenExpiration)))
+                .setIssuedAt(issued)
+                .setExpiration(exp)
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

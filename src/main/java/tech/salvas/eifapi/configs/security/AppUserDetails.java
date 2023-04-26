@@ -16,10 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 public class AppUserDetails implements UserDetails {
 
-    private String email;
     private String username;
     private String password;
-    private String role; // TODO : qwer
+    private String role; // useless in our case
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -33,11 +32,7 @@ public class AppUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        if (email == null) {
-         return username;
-        } else {
-            return email;
-        }
+        return username;
     }
 
     @Override
