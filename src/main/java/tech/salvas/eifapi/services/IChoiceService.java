@@ -7,6 +7,7 @@ import java.util.List;
 public interface IChoiceService {
     void save(String cp, String code, int preference);
     void delete(long id);
+    void deleteAll();
     void update();
     List<ChoiceDTO> getAll();
     ChoiceDTO get(long key);

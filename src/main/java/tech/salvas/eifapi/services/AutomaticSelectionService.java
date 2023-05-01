@@ -1,23 +1,23 @@
 package tech.salvas.eifapi.services;
 
 import org.springframework.stereotype.Service;
-import tech.salvas.eifapi.dtos.ActivityDTO;
-import tech.salvas.eifapi.dtos.ChoiceActivityDTO;
-import tech.salvas.eifapi.dtos.ChoiceDTO;
-import tech.salvas.eifapi.dtos.StudentChoiceDTO;
+import tech.salvas.eifapi.dtos.*;
 
 import java.util.*;
 
 @Service
 public class AutomaticSelectionService implements IAutomaticSelectionService {
-    IChoiceService choiceService;
-    UserService userService;
-    ActivityService activityService;
+    private final IChoiceService choiceService;
+    private final UserService userService;
+    private final IActivityService activityService;
+    private final IAttendanceService attendanceService;
 
-    public AutomaticSelectionService(IChoiceService choiceService, UserService userService, ActivityService activityService) {
+    public AutomaticSelectionService(IChoiceService choiceService, UserService userService, IActivityService activityService,
+                                     IAttendanceService attendanceService) {
         this.choiceService = choiceService;
         this.userService = userService;
         this.activityService = activityService;
+        this.attendanceService = attendanceService;
     }
 
     @Override
@@ -68,7 +68,15 @@ public class AutomaticSelectionService implements IAutomaticSelectionService {
     }
 
     @Override
-    public void saveSelection() {
+    public void saveSelection(StudentChoiceDTO[] studentChoiceDTO, String session) {
+        attendanceService.terminateCurrentAttendance();
 
+        for (StudentChoiceDTO sc : studentChoiceDTO) {
+            AttendanceDTO attendance = sc.getAttendance();
+            attendance.setSession(session);
+            attendanceService.insert(attendance);
+        }
+
+        choiceService.deleteAll();
     }
 }

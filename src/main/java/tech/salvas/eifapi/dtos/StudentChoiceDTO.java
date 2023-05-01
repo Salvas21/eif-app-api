@@ -12,4 +12,17 @@ import java.util.List;
 public class StudentChoiceDTO {
     private StudentDTO student;
     private List<ChoiceActivityDTO> choices;
+
+    public AttendanceDTO getAttendance() {
+        ChoiceActivityDTO selected = null;
+        for (ChoiceActivityDTO choice : choices) {
+            if (choice.isSelected())
+                selected = choice;
+        }
+
+        if (selected != null)
+            return new AttendanceDTO(selected.getActivity().getId(), student.getId(), "", false);
+
+        return null;
+    }
 }

@@ -2,7 +2,6 @@ package tech.salvas.eifapi.services;
 
 import org.springframework.stereotype.Service;
 import tech.salvas.eifapi.dtos.ActivityDTO;
-import tech.salvas.eifapi.dtos.ChoiceActivityDTO;
 import tech.salvas.eifapi.dtos.ChoiceDTO;
 import tech.salvas.eifapi.mappers.ActivityMapper;
 import tech.salvas.eifapi.mappers.ChoiceMapper;
@@ -17,12 +16,11 @@ import java.util.List;
 
 @Service
 public class ChoiceService implements IChoiceService {
-    private ChoiceRepository choiceRepository;
-    private StudentRepository studentRepository;
-    private ActivityRepository activityRepository;
-
-    private ChoiceMapper choiceMapper;
-    private ActivityMapper activityMapper;
+    private final ChoiceRepository choiceRepository;
+    private final StudentRepository studentRepository;
+    private final ActivityRepository activityRepository;
+    private final ChoiceMapper choiceMapper;
+    private final ActivityMapper activityMapper;
 
     public ChoiceService(ChoiceRepository choiceRepository, StudentRepository studentRepository, ActivityRepository activityRepository) {
         this.choiceRepository = choiceRepository;
@@ -42,6 +40,11 @@ public class ChoiceService implements IChoiceService {
     @Override
     public void delete(long id) {
 
+    }
+
+    @Override
+    public void deleteAll() {
+        this.choiceRepository.deleteAll();
     }
 
     @Override
