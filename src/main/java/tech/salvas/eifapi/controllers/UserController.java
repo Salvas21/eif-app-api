@@ -3,7 +3,7 @@ package tech.salvas.eifapi.controllers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.salvas.eifapi.dtos.StudentDTO;
-import tech.salvas.eifapi.services.UserService;
+import tech.salvas.eifapi.services.impl.UserService;
 
 import java.util.List;
 

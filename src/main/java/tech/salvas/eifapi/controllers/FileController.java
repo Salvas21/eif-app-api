@@ -1,6 +1,5 @@
 package tech.salvas.eifapi.controllers;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(path = "/api/files")
 public class FileController {
-
     private final IFileService fileService;
     private final FileMapper fileMapper = new FileMapper();
 

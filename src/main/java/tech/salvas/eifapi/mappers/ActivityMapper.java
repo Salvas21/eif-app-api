@@ -15,6 +15,7 @@ public class ActivityMapper implements Mapper<Activity, ActivityDTO> {
         dto.setLevelName();
         return dto;
     }
+
     public Activity toEntity(ActivityDTO activityDTO) {
         var entity = new Activity();
         entity.setId(activityDTO.getId());

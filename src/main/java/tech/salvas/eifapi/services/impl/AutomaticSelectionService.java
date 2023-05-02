@@ -1,7 +1,11 @@
-package tech.salvas.eifapi.services;
+package tech.salvas.eifapi.services.impl;
 
 import org.springframework.stereotype.Service;
 import tech.salvas.eifapi.dtos.*;
+import tech.salvas.eifapi.services.IActivityService;
+import tech.salvas.eifapi.services.IAttendanceService;
+import tech.salvas.eifapi.services.IAutomaticSelectionService;
+import tech.salvas.eifapi.services.IChoiceService;
 
 import java.util.*;
 

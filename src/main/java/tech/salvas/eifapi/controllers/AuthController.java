@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.salvas.eifapi.dtos.AuthDTO;
-import tech.salvas.eifapi.services.UserService;
+import tech.salvas.eifapi.services.impl.UserService;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -35,8 +35,8 @@ public class AuthController {
         } catch (NoSuchElementException exception) {
             // happens when a student tries to log in as an admin or vice versa
             return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body("Identifiants invalides");
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Identifiants invalides");
         }
     }
 }

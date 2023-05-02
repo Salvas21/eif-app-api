@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DOConfig {
-
     @Value("${do.space.key}")
     private String spaceKey;
 

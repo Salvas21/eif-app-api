@@ -1,4 +1,4 @@
-package tech.salvas.eifapi.services;
+package tech.salvas.eifapi.services.impl;
 
 import org.springframework.stereotype.Service;
 import tech.salvas.eifapi.dtos.ActivityDTO;
@@ -8,6 +8,7 @@ import tech.salvas.eifapi.repositories.ActivityRepository;
 import tech.salvas.eifapi.mappers.ActivityMapper;
 import tech.salvas.eifapi.repositories.AttendanceRepository;
 import tech.salvas.eifapi.repositories.StudentRepository;
+import tech.salvas.eifapi.services.IActivityService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,20 +16,16 @@ import java.util.List;
 
 @Service
 public class ActivityService implements IActivityService {
-
-    private ActivityRepository activityRepository;
-
-    private AttendanceRepository attendanceRepository;
-    private StudentRepository studentRepository;
-
-    private ActivityMapper mapper = new ActivityMapper();
+    private final ActivityRepository activityRepository;
+    private final AttendanceRepository attendanceRepository;
+    private final StudentRepository studentRepository;
+    private final ActivityMapper mapper = new ActivityMapper();
 
     public ActivityService(ActivityRepository repository, AttendanceRepository attendanceRepository, StudentRepository studentRepository) {
         this.activityRepository = repository;
         this.attendanceRepository = attendanceRepository;
         this.studentRepository = studentRepository;
     }
-
 
     @Override
     public void save(ActivityDTO activityDTO) {
@@ -52,7 +49,7 @@ public class ActivityService implements IActivityService {
     @Override
     public List<ActivityDTO> getAll() {
         List<ActivityDTO> activityDTOS = new ArrayList<>();
-        for (Activity activity:  activityRepository.findAll()) {
+        for (Activity activity : activityRepository.findAll()) {
             activityDTOS.add(mapper.toDTO(activity));
         }
         return activityDTOS;
@@ -73,7 +70,7 @@ public class ActivityService implements IActivityService {
     public List<ActivityDTO> getCurrentForStudent(String cp) {
         List<ActivityDTO> activityDTOS = new ArrayList<>();
         var student = studentRepository.findStudentByCp(cp).orElse(null);
-        for (var attendance: attendanceRepository.findAttendancesByStudentId(student.getId()).orElseThrow()) {
+        for (var attendance : attendanceRepository.findAttendancesByStudentId(student.getId()).orElseThrow()) {
             activityDTOS.add(mapper.toDTO(activityRepository.findById(attendance.getActivityId()).orElseThrow()));
         }
         return activityDTOS;
@@ -83,9 +80,7 @@ public class ActivityService implements IActivityService {
     public List<ActivityDTO> getActivityAvailableForStudent(String cp) {
         List<ActivityDTO> activityDTOS = new ArrayList<>();
         var level = studentRepository.findStudentByCp(cp).orElseThrow().getLevelId();
-//        System.out.println(level);
-//        System.out.println(activityRepository.findActivitiesByLevelIdIsLessThanEqual(level.intValue()));
-        for (var activity: activityRepository.findActivitiesByLevelIdIsLessThanEqual(level.intValue()).orElseThrow()) {
+        for (var activity : activityRepository.findActivitiesByLevelIdIsLessThanEqual(level.intValue()).orElseThrow()) {
             activityDTOS.add(mapper.toDTO(activity));
         }
         return activityDTOS;

@@ -23,7 +23,7 @@ public class ChoiceMapper implements Mapper<Choice, ChoiceDTO> {
         return entity;
     }
 
-    public Choice toEntity(Long activityId, Long studentId,int preference) {
+    public Choice toEntity(Long activityId, Long studentId, int preference) {
         var entity = new Choice();
         entity.setActivityId(activityId);
         entity.setSelected(false);

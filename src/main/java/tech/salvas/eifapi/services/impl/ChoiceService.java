@@ -1,4 +1,4 @@
-package tech.salvas.eifapi.services;
+package tech.salvas.eifapi.services.impl;
 
 import org.springframework.stereotype.Service;
 import tech.salvas.eifapi.dtos.ActivityDTO;
@@ -10,6 +10,7 @@ import tech.salvas.eifapi.models.Choice;
 import tech.salvas.eifapi.repositories.ActivityRepository;
 import tech.salvas.eifapi.repositories.ChoiceRepository;
 import tech.salvas.eifapi.repositories.StudentRepository;
+import tech.salvas.eifapi.services.IChoiceService;
 
 import java.util.ArrayList;
 import java.util.List;

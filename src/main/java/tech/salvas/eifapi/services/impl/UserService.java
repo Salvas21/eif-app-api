@@ -1,4 +1,4 @@
-package tech.salvas.eifapi.services;
+package tech.salvas.eifapi.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,14 +12,13 @@ import tech.salvas.eifapi.dtos.StudentDTO;
 import tech.salvas.eifapi.dtos.UserDTO;
 import tech.salvas.eifapi.mappers.AdminMapper;
 import tech.salvas.eifapi.mappers.StudentMapper;
-import tech.salvas.eifapi.models.Admin;
 import tech.salvas.eifapi.models.Student;
 import tech.salvas.eifapi.repositories.AdminRepository;
 import tech.salvas.eifapi.repositories.StudentRepository;
+import tech.salvas.eifapi.services.IUserService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +27,6 @@ public class UserService implements IUserService {
     private final StudentRepository studentRepository;
     private final StudentMapper studentMapper = new StudentMapper();
     private final AdminMapper adminMapper = new AdminMapper();
-
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -55,11 +53,6 @@ public class UserService implements IUserService {
 
     @Override
     public UserDTO get(String key) {
-        return null;
-    }
-
-    @Override
-    public UserDTO getAt(int index) {
         return null;
     }
 

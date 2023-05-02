@@ -10,10 +10,10 @@ public class ActivityDTO {
     private String description;
     private int level;
     private int places;
-
     private String levelName = "";
 
-    public ActivityDTO() {}
+    public ActivityDTO() {
+    }
 
     public String getLevelName() {
         return levelName;

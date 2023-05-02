@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface IAutomaticSelectionService {
     List<StudentChoiceDTO> generateSelection();
+
     void saveSelection(StudentChoiceDTO[] studentChoiceDTO, String session);
 }

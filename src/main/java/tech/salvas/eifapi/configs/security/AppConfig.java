@@ -20,7 +20,6 @@ import java.util.Optional;
 @Configuration
 @RequiredArgsConstructor
 public class AppConfig {
-
     private final StudentRepository studentRepository;
     private final AdminRepository adminRepository;
 

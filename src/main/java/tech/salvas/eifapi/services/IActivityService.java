@@ -6,10 +6,13 @@ import java.util.List;
 
 public interface IActivityService {
     void save(ActivityDTO activityDTO);
+
     boolean delete(String code);
 
     boolean update(ActivityDTO activityDTO, String code);
+
     List<ActivityDTO> getAll();
+
     ActivityDTO get(String code);
 
     ActivityDTO getById(Long id);
@@ -17,5 +20,6 @@ public interface IActivityService {
     List<ActivityDTO> getCurrentForStudent(String cp);
 
     List<ActivityDTO> getActivityAvailableForStudent(String cp);
+
     List<String> getLevels();
 }

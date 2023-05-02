@@ -1,6 +1,5 @@
 package tech.salvas.eifapi.configs.security;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +14,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class AppUserDetails implements UserDetails {
-
     private String username;
     private String password;
     private String role; // useless in our case

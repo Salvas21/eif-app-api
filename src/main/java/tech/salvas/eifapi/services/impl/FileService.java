@@ -1,4 +1,4 @@
-package tech.salvas.eifapi.services;
+package tech.salvas.eifapi.services.impl;
 
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import tech.salvas.eifapi.models.File;
+import tech.salvas.eifapi.services.IFileService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,7 +19,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class FileService implements IFileService {
-
     final AmazonS3 s3Client;
     String folder = "activities-files/";
     @Value("${do.space.bucket}")

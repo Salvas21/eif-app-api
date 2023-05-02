@@ -1,9 +1,10 @@
-package tech.salvas.eifapi.services;
+package tech.salvas.eifapi.services.impl;
 
 import org.springframework.stereotype.Service;
 import tech.salvas.eifapi.dtos.AttendanceDTO;
 import tech.salvas.eifapi.repositories.AttendanceInsertRepository;
 import tech.salvas.eifapi.repositories.AttendanceRepository;
+import tech.salvas.eifapi.services.IAttendanceService;
 
 @Service
 public class AttendanceService implements IAttendanceService {

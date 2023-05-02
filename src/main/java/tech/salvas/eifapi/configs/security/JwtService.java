@@ -19,7 +19,6 @@ import java.util.function.Function;
 @Service
 @RequiredArgsConstructor
 public class JwtService {
-
     @Value("${eif-api.jwt.secret}")
     private String secretKey;
 
