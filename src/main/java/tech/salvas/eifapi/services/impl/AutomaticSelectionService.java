@@ -2,10 +2,7 @@ package tech.salvas.eifapi.services.impl;
 
 import org.springframework.stereotype.Service;
 import tech.salvas.eifapi.dtos.*;
-import tech.salvas.eifapi.services.IActivityService;
-import tech.salvas.eifapi.services.IAttendanceService;
-import tech.salvas.eifapi.services.IAutomaticSelectionService;
-import tech.salvas.eifapi.services.IChoiceService;
+import tech.salvas.eifapi.services.*;
 
 import java.util.*;
 
@@ -15,13 +12,15 @@ public class AutomaticSelectionService implements IAutomaticSelectionService {
     private final UserService userService;
     private final IActivityService activityService;
     private final IAttendanceService attendanceService;
+    private final IMailService mailService;
 
     public AutomaticSelectionService(IChoiceService choiceService, UserService userService, IActivityService activityService,
-                                     IAttendanceService attendanceService) {
+                                     IAttendanceService attendanceService, IMailService mailService) {
         this.choiceService = choiceService;
         this.userService = userService;
         this.activityService = activityService;
         this.attendanceService = attendanceService;
+        this.mailService = mailService;
     }
 
     @Override
@@ -60,6 +59,7 @@ public class AutomaticSelectionService implements IAutomaticSelectionService {
         return students;
     }
 
+    //TODO: Make mapper even if two DTOs?
     private ChoiceActivityDTO choiceActivityDTOFromChoiceDTO(ChoiceDTO choiceDTO) {
         ActivityDTO activityDTO = activityService.getById(choiceDTO.getActivityId());
 
@@ -78,7 +78,10 @@ public class AutomaticSelectionService implements IAutomaticSelectionService {
         for (StudentChoiceDTO sc : studentChoiceDTO) {
             AttendanceDTO attendance = sc.getAttendance();
             attendance.setSession(session);
+            // Save attendance in DB
             attendanceService.insert(attendance);
+            // Send email to student
+            mailService.sendActivitySelection(attendance);
         }
 
         choiceService.deleteAll();

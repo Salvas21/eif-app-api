@@ -21,6 +21,12 @@ eif-api:
     token-issuer: 'EIF APP TFF'
 
 spring:
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    sender: ${MAIL_SENDER}
   datasource:
     url: ${DB_URL}
     username: ${DB_USER}
