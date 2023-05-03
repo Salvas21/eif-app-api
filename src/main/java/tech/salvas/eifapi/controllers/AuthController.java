@@ -26,7 +26,7 @@ public class AuthController {
         JsonParser springParser = JsonParserFactory.getJsonParser();
         Map<String, Object> credentials = springParser.parseMap(jsonString);
         try {
-            String subject = credentials.get("email").toString();
+            String subject = credentials.get("subject").toString();
             String password = credentials.get("password").toString();
             boolean isAdmin = (boolean) credentials.get("isAdmin");
             // if credentials don't match any of admin or students, returns a 403 forbidden
