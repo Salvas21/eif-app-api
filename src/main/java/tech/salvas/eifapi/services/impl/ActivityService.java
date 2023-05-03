@@ -70,7 +70,7 @@ public class ActivityService implements IActivityService {
     public List<ActivityDTO> getCurrentForStudent(String cp) {
         List<ActivityDTO> activityDTOS = new ArrayList<>();
         var student = studentRepository.findStudentByCp(cp).orElse(null);
-        for (var attendance : attendanceRepository.findAttendancesByStudentId(student.getId()).orElseThrow()) {
+        for (var attendance : attendanceRepository.findAttendancesByStudentIdAndFinishedFalse(student.getId()).orElseThrow()) {
             activityDTOS.add(mapper.toDTO(activityRepository.findById(attendance.getActivityId()).orElseThrow()));
         }
         return activityDTOS;

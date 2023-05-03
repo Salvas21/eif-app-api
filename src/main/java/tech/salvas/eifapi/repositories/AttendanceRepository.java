@@ -14,6 +14,8 @@ import java.util.Optional;
 public interface AttendanceRepository extends CrudRepository<Attendance, Long> {
     Optional<List<Attendance>> findAttendancesByStudentId(Long id);
 
+    Optional<List<Attendance>> findAttendancesByStudentIdAndFinishedFalse(Long id);
+
     @Transactional
     @Modifying
     @Query("update Attendance a set a.finished = true")
