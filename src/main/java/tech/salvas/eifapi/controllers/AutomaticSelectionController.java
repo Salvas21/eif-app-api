@@ -35,7 +35,6 @@ public class AutomaticSelectionController {
     }
 
     // Wrapper used to receive two different values from same request body
-    //TODO: Extract class or keep private and internal?
     private static class SelectionWrapper {
         public StudentChoiceDTO[] students;
         public String session;

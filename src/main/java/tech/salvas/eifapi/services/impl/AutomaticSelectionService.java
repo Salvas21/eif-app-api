@@ -25,10 +25,18 @@ public class AutomaticSelectionService implements IAutomaticSelectionService {
 
     @Override
     public List<StudentChoiceDTO> generateSelection() {
+        // Get choices from DB
         List<ChoiceDTO> choices = this.choiceService.getAll();
-        Map<Long, Integer> placeTracker = new HashMap<>();
-        Map<Long, StudentChoiceDTO> studentChoices = new HashMap<>();
+        // Convert choices from DB to studentChoices
+        List<StudentChoiceDTO> students = convertChoicesToStudentChoices(choices);
+        // Assign the activities to students
+        assignActivities(students);
 
+        return students;
+    }
+
+    private List<StudentChoiceDTO> convertChoicesToStudentChoices(List<ChoiceDTO> choices) {
+        Map<Long, StudentChoiceDTO> studentChoices = new HashMap<>();
         for (ChoiceDTO choice : choices) {
             if (studentChoices.containsKey(choice.getStudentId())) {
                 studentChoices.get(choice.getStudentId()).getChoices().add(choiceActivityDTOFromChoiceDTO(choice));
@@ -37,29 +45,32 @@ public class AutomaticSelectionService implements IAutomaticSelectionService {
                 sc.getChoices().add(choiceActivityDTOFromChoiceDTO(choice));
                 studentChoices.put(choice.getStudentId(), sc);
             }
-            // Init the place tracker by adding every activity that have inscriptions
-            placeTracker.putIfAbsent(choice.getActivityId(), 0);
         }
 
-        List<StudentChoiceDTO> students = new ArrayList<>(studentChoices.values());
+        return new ArrayList<>(studentChoices.values());
+    }
 
+    private void assignActivities(List<StudentChoiceDTO> students) {
+        Map<Long, Integer> placeTracker = new HashMap<>();
         // Insure students are sorted by first come, first served
         students.sort(Comparator.comparingLong(a -> a.getStudent().getId()));
 
+        // Assign activities to students
         for (StudentChoiceDTO student : students) {
             for (ChoiceActivityDTO choice : student.getChoices()) {
+                // If first time seeing activity insert it into the place tracker
+                placeTracker.putIfAbsent(choice.getActivity().getId(), 0);
+
                 if (placeTracker.get(choice.getActivity().getId()) < choice.getActivity().getPlaces()) {
                     choice.setSelected(true);
+                    // Increment the place tracker since activity has been assign for one more student
                     placeTracker.put(choice.getActivity().getId(), placeTracker.get(choice.getActivity().getId()) + 1);
                     break;
                 }
             }
         }
-
-        return students;
     }
 
-    //TODO: Make mapper even if two DTOs?
     private ChoiceActivityDTO choiceActivityDTOFromChoiceDTO(ChoiceDTO choiceDTO) {
         ActivityDTO activityDTO = activityService.getById(choiceDTO.getActivityId());
 

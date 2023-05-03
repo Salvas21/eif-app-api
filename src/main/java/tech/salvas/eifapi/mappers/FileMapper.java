@@ -1,5 +1,6 @@
 package tech.salvas.eifapi.mappers;
 
+import org.apache.commons.lang3.NotImplementedException;
 import tech.salvas.eifapi.dtos.FileDTO;
 import tech.salvas.eifapi.models.File;
 
@@ -16,7 +17,6 @@ public class FileMapper implements Mapper<File, FileDTO> {
 
     @Override
     public File toEntity(FileDTO fileDTO) {
-        // TODO : won't be using this
-        return null;
+        throw new NotImplementedException();
     }
 }
