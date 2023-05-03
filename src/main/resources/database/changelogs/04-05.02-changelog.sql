@@ -10,14 +10,14 @@ values ('Avancé');
 
 -- Admin
 insert into "Admin" (email, password, ce, first_name, last_name)
-values ('admin@admin.com', 'Omega123', 'AADM12312312', 'Admin', 'Name');
+values ('admin@admin.com', '$2a$10$6YJfO8qqxQWH0JrJ7Sjf8Op4jaJ154/MMZZ84UfAtpwOpuk.wE0A6', 'AADM12312312', 'Admin', 'Name');
 
 -- Students
 insert into "Student" (email, password, cp, first_name, last_name, level_id)
-values ('martin@sandwich.com', 'Omega123', 'SANM12345678', 'Martin', 'Sandwich', 2);
+values ('martin@sandwich.com', '$2a$10$6YJfO8qqxQWH0JrJ7Sjf8Op4jaJ154/MMZZ84UfAtpwOpuk.wE0A6', 'SANM12345678', 'Martin', 'Sandwich', 2);
 
 insert into "Student" (email, password, cp, first_name, last_name, level_id)
-values ('bob@bob.com', 'Omega123', 'BOBB87654321', 'Bob', 'Bob', 1);
+values ('bob@bob.com', '$2a$10$6YJfO8qqxQWH0JrJ7Sjf8Op4jaJ154/MMZZ84UfAtpwOpuk.wE0A6', 'BOBB87654321', 'Bob', 'Bob', 1);
 
 -- Activities
 insert into "Activity" (code, name, description, level_id)
